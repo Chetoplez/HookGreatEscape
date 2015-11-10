@@ -12,4 +12,8 @@ public class EffectArea : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public bool isPlayer(GameObject p) {
+        return p.tag == "Player";
+    }
 }

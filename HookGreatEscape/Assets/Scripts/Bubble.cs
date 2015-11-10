@@ -3,6 +3,11 @@ using System.Collections;
 
 public class Bubble : MonoBehaviour {
 
+    private float velocity;
+    public float Velocity{
+        get { return velocity; }
+        set{ velocity = value; }
+        }
 	// Use this for initialization
 	void Start () {
 	
@@ -12,4 +17,14 @@ public class Bubble : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void grow(){
+    }
+
+    public void die() {
+    }
+
+    public void encapsule() {
+    }
+
 }

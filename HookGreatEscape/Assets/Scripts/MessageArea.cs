@@ -12,4 +12,11 @@ public class MessageArea : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void show_message(){
+
+    }
+
+    public void help_incr() {
+    }
 }

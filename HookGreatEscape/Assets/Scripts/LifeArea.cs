@@ -12,4 +12,9 @@ public class LifeArea : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void doSomething()
+    {
+
+    }
 }
