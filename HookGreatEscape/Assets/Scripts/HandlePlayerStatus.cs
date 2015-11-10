@@ -3,13 +3,30 @@ using System.Collections;
 
 public class HandlePlayerStatus : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public enum PlayerStatus { 
+        IDLE,
+        ONGROUND,
+        ONAIR,
+        DIED,
+        SHOOTING,
+        JUMPING
+    }
+    public PlayerStatus state;
+
+    /* Delta time after shooting a new hit */
+    [Range(0,10)]
+    public int shooting_pause = 1;
+    /* Same for jump */
+    [Range(0, 10)]
+    public int jumping_pause = 1;
+    /* TimeStamps */
+    private System.DateTime last_jumping_time;
+    private System.DateTime last_shooting_time;
+
+    
+    
+    void Update() { 
+    }
+
+
 }
