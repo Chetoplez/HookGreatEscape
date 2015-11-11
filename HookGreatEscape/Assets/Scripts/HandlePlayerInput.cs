@@ -42,7 +42,7 @@ public class HandlePlayerInput : MonoBehaviour {
         p.move();
     }
 
-    private void jump() { if (!is_valid()) return; throw new NotImplementedException(); }
+    private void jump() { if (!is_valid()) return; Player p = player.GetComponent<Player>(); p.jump(); }
     private void pause() { if (!is_valid()) return; throw new NotImplementedException(); }
 
     /* Search the player in the tree (not always will be, such as the main menu */

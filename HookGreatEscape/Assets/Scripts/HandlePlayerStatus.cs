@@ -30,4 +30,7 @@ public class HandlePlayerStatus : MonoBehaviour {
     }
 
 
+    /* Not apply the gravity if we are on ground */
+    public bool can_apply_gravity() { return (state==PlayerStatus.JUMPING || state==PlayerStatus.ONAIR);}
+
 }
