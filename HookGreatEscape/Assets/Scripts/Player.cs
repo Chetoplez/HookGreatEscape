@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+[RequireComponent(typeof(Collider2D)),RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(HandlePlayerStatus))]
 public class Player : MonoBehaviour
 {
 
@@ -10,12 +11,19 @@ public class Player : MonoBehaviour
     /* Player Speed */
     [Range(0,10)]
     public int speed_factor=1;
+    
     /* Are we going forward or backward?*/
     private bool forward=true;
     public bool Forward { set { forward = value; } }
+    
     /* Jump speed */
     [Range(0,10)]
     public int jump_speed = 1;
+
+    /* Velocity direction */
+    private Vector3 velocity=Vector3.zero;
+    public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
+
 
     /* This is the target that help with the shoot direction */
     public GameObject target = null;
@@ -42,7 +50,8 @@ public class Player : MonoBehaviour
 
     /* Move by a fixed quantity */
     public void move(){
-       throw new NotImplementedException();
+        velocity.x *= (this.forward) ? 1 : -1;
+        this.transform.Translate(velocity*speed_factor*Time.deltaTime);
     }
 
     /* Jump! */

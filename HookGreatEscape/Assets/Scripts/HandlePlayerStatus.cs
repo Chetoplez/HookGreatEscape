@@ -22,8 +22,9 @@ public class HandlePlayerStatus : MonoBehaviour {
     /* TimeStamps */
     private System.DateTime last_jumping_time;
     private System.DateTime last_shooting_time;
-
-    
+    /* Can the character move? */
+    private bool can_move = true;
+    public bool Can_move { get { return can_move; } }
     
     void Update() { 
     }
