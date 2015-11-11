@@ -3,22 +3,22 @@ using System.Collections;
 
 public class AiState : MonoBehaviour {
 
-    enum pirateState {
+   public enum pirateState {
         idle,
         blocked,
         chasing,
         confuse,
         attack,
-        throwing
+        throwing,
+        wandering
+    } 
+
+    public enum pirate
+    {
+        drunk,
+        sober,
+        verySober
     }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-}
+    
+    }
