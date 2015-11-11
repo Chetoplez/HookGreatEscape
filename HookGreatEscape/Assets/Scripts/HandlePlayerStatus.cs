@@ -36,8 +36,12 @@ public class HandlePlayerStatus : MonoBehaviour {
 
         if (!can_jump)
         {
+            can_move = false;
             if (System.DateTime.Now > last_jumping_time)
+            {
                 can_jump = true;
+                can_move = true;
+            }
         }
     }
 
