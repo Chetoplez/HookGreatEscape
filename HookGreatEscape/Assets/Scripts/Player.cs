@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
         {
             move_vertically();
         }
-        
+        Debug.Log("Mystate=" + player_status.state);
     }
 
     #endregion
@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
     #region Methods
 
     /* Apply gravity to our character */
+    /* TODO:: gravity is too strong!!! */
     void apply_gravity() {
         if (this.velocity.y < (-max_velocity_y))
             this.velocity.y = -max_velocity_y;
@@ -139,7 +140,7 @@ public class Player : MonoBehaviour
         var ray_origin = is_going_up ? _raycast_top_left : _raycast_bottom_left;
 
         //ray_origin.x += velocity.x;
-        ray_distance = skin_width;
+        ray_distance = skin_width * 2;
         bool collision_detected = false;
         for (int i = 0; i < total_vertical_rays; i++)
         {
@@ -152,13 +153,9 @@ public class Player : MonoBehaviour
 
             collision_detected = true;
 
-            Debug.Log("Hitted gameobject "+ raycasthit.collider.gameObject);
-            //velocity.y = raycasthit.point.y - ray_vector.y;
-            //ray_distance = Mathf.Abs(velocity.y);
-           
-
+            
             player_status.state = (is_going_up) ? HandlePlayerStatus.PlayerStatus.ONAIR : HandlePlayerStatus.PlayerStatus.ONGROUND;
-            Debug.Log("Mystate=" + player_status.state);
+           
 
             if (player_status.state == HandlePlayerStatus.PlayerStatus.ONGROUND)
                 velocity.y = 0;
