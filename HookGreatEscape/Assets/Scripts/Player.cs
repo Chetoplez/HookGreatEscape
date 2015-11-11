@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
 
     #region Variables
 
+    /* Life of the player */
+    private int lives = 5;
+
     /* Player Speed */
     [Range(0,10)]
     public int speed_factor=1;
@@ -187,6 +190,16 @@ public class Player : MonoBehaviour
     /* Shoot a bubble! */
     public void shoot() {
         throw new NotImplementedException();
+    }
+
+    /* Hitted by a pirate or by a bomb */
+    public void hit(int damage=1) {
+        this.lives--;
+        if (lives == 0)
+            die();
+        GameController gc = GameObject.Find("GameController").GetComponent<GameController>() ?? null;
+        if(gc!=null)
+            gc.Lives = this.lives;
     }
 
     /* So long */
