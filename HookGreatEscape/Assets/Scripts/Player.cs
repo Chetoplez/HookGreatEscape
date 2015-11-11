@@ -47,6 +47,11 @@ public class Player : MonoBehaviour
     {
         if (player_status.can_apply_gravity())
             apply_gravity();
+        if (player_status.state == HandlePlayerStatus.PlayerStatus.JUMPING)
+        {
+            move_vertically();
+        }
+        
     }
 
     #endregion
@@ -72,7 +77,12 @@ public class Player : MonoBehaviour
             velocity.x = 1;
             velocity.x = (this.forward) ? 1 : -1;
         }
-        this.transform.Translate(velocity*speed_factor*Time.deltaTime);
+        this.transform.Translate(velocity * speed_factor * Time.deltaTime);
+    }
+
+    /* Move vertically */
+    public void move_vertically() {
+        move(false);
     }
 
     /* Jump! */
@@ -80,6 +90,8 @@ public class Player : MonoBehaviour
         velocity.y = 1;
         Vector2 my_jump = new Vector2(0,jump_speed*Time.deltaTime);
         add_force(my_jump);
+        player_status.JumpingTime = System.DateTime.Now ;
+        player_status.state = HandlePlayerStatus.PlayerStatus.JUMPING;
         move(false);
     }
 

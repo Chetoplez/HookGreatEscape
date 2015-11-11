@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2792a7cc8fddf2459587bb1f555db82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  state: 1
   shooting_pause: 1
   jumping_pause: 1
 --- !u!50 &1498943923
