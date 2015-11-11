@@ -8,12 +8,12 @@ public class HandlePlayerInput : MonoBehaviour {
     public GameObject player;
     /* Must link the player status */
     private HandlePlayerStatus player_status;
+    /* This is the target that helps player to shoot */
+    private GameObject target;
 
-
-	void Start () {
-	    
-	}
-	
+    private const float maximum_y_target= 0.2f;
+    private const float minimum_y_target= -0.2f;
+    
 	
 	void Update () {
         
@@ -23,7 +23,11 @@ public class HandlePlayerInput : MonoBehaviour {
             move_player(false);
         if (jump_input())
             jump();
-
+        if (Input.GetAxis("Mouse Y")>0)
+            move_target(true);
+        
+        if (Input.GetAxis("Mouse Y") < 0)
+            move_target(false);
 	}
 
 
@@ -41,9 +45,33 @@ public class HandlePlayerInput : MonoBehaviour {
         p.Forward = (left)? false:true;
         p.move();
     }
-
     private void jump() { if (!is_valid()) return; Player p = player.GetComponent<Player>(); p.jump(); }
     private void pause() { if (!is_valid()) return; throw new NotImplementedException(); }
+
+    /* Move the target */
+    private void move_target(bool up=true) {
+        if (!is_valid()) return;
+        if (target == null)
+            target = GameObject.Find("Target") ?? null;
+        if (target == null) return;
+        if (up)
+        {
+            if (target.transform.position.y - player.transform.position.y < maximum_y_target)
+            {
+                target.transform.Translate(new Vector3(0, 1, 0)*Time.deltaTime, Space.World);
+            }
+        }
+        else
+        {
+            if (target.transform.position.y - player.transform.position.y > minimum_y_target)
+            {
+                target.transform.Translate(new Vector3(0,- 1, 0)*Time.deltaTime, Space.World);
+            }
+        
+        }
+
+
+    }
 
     /* Search the player in the tree (not always will be, such as the main menu */
     void check_player_presence() {
