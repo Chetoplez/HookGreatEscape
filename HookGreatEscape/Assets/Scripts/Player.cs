@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-[RequireComponent(typeof(Collider2D)),RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(HandlePlayerStatus))]
+[RequireComponent(typeof(Collider2D)),RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(HandlePlayerStatus)),RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
 
@@ -23,6 +23,10 @@ public class Player : MonoBehaviour
     /* Velocity direction */
     private Vector3 velocity=Vector3.zero;
     public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
+
+    /* this is the gravity */
+    [Range(0,10)]
+    public int gravity_factor=1;
 
 
     /* This is the target that help with the shoot direction */
@@ -50,7 +54,8 @@ public class Player : MonoBehaviour
 
     /* Move by a fixed quantity */
     public void move(){
-        velocity.x *= (this.forward) ? 1 : -1;
+        velocity.x = 1;
+        velocity.x = (this.forward) ? 1 : -1;
         this.transform.Translate(velocity*speed_factor*Time.deltaTime);
     }
 

@@ -20,7 +20,7 @@ public class HandlePlayerInput : MonoBehaviour {
         if (left_input())
             move_player(true);
         if (right_input())
-            move_player(true);
+            move_player(false);
         if (jump_input())
             jump();
 
@@ -38,7 +38,7 @@ public class HandlePlayerInput : MonoBehaviour {
     private void move_player(bool left=false) { 
         if (!is_valid()) return;
         Player p = player.GetComponent<Player>();
-        p.Forward = !left;
+        p.Forward = (left)? false:true;
         p.move();
     }
 
