@@ -229,8 +229,6 @@ public class Player : MonoBehaviour
 
     /* So long */
     public void die() {
-
-        
         throw new NotImplementedException();
     }
 

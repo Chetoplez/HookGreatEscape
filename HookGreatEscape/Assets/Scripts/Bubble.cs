@@ -65,14 +65,18 @@ public class Bubble : MonoBehaviour {
 
     /* ....and POP! */
     public void die() {
-        Debug.Log("Bubble: POP!");
-        throw new NotImplementedException();
+        DestroyObject(this.gameObject);
     }
 
     /* Encapsule an enemy */
     public void encapsule() {
         Debug.Log("Bubble: Enemy encapsulated!");
         throw new NotImplementedException();
+    }
+
+    /* Check if encapsuled an enemy */
+    void OnTriggerEnter2D(Collider2D other) { 
+        
     }
 
 }
