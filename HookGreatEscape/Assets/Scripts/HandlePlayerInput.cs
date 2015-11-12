@@ -31,6 +31,25 @@ public class HandlePlayerInput : MonoBehaviour {
         
         if (Input.GetAxis("Mouse Y") < 0)
             move_target(false);
+        
+        if (player != null)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (can_create_bubble)
+                    create_bubble();
+                else
+                    if(bubble_holding)
+                        grow_bubble();
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (bubble_holding)
+                      shoot_bubble();
+            }
+        }
+
 	}
 
 
@@ -90,12 +109,17 @@ public class HandlePlayerInput : MonoBehaviour {
     private void grow_bubble() {
         check_player_presence();
         if (!bubble_holding) return;
+        Player p = player.GetComponent<Player>();
+        p.grow_bubble();
     }
 
     /* Shoot the bubble */
     private void shoot_bubble() {
         check_player_presence();
         can_create_bubble=true;
+        bubble_holding = false;
+        Player p = player.GetComponent<Player>();
+        p.shoot();
     }
 
     /* Search the player in the tree (not always will be, such as the main menu */

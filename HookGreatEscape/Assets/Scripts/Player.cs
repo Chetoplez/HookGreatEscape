@@ -196,7 +196,7 @@ public class Player : MonoBehaviour
 
     /*  Create a bubble */
     public void create_bubble() {
-        bubble = new Bubble();
+        Instantiate(Resources.Load("Bubble"), this.pistol.transform.position, this.transform.rotation);
     }
     
     /* Grow the bubble */
@@ -208,6 +208,7 @@ public class Player : MonoBehaviour
     /* Shoot a bubble! */
     public void shoot() {
         if(bubble!=null)
+        bubble.Velocity = target.transform.position - bubble.transform.position;
         bubble.Shooted = true;
     }
 

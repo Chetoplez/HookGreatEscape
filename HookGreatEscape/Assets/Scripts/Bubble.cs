@@ -32,6 +32,7 @@ public class Bubble : MonoBehaviour {
     [Range(2,10)]
     public int max_growing_factor = 10;
 
+    
 
 
 	void Start () {
