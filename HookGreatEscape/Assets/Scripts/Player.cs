@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     /* Starting point of a bubble */
     public GameObject pistol = null;
     /* This is the bubble that will be created  */
-    private Bubble bubble = null;
+    private GameObject bubble = null;
 
     #endregion
 
@@ -196,20 +196,22 @@ public class Player : MonoBehaviour
 
     /*  Create a bubble */
     public void create_bubble() {
-        Instantiate(Resources.Load("Bubble"), this.pistol.transform.position, this.transform.rotation);
+        this.bubble=Instantiate(Resources.Load("Bubble"), this.pistol.transform.position, this.transform.rotation) as GameObject;
     }
     
     /* Grow the bubble */
     public void grow_bubble() {
-        if(bubble!=null)
-        bubble.grow();
+        if (bubble == null) return;
+        Bubble bb= bubble.GetComponent<Bubble>();
+        bb.grow();
     }
 
     /* Shoot a bubble! */
     public void shoot() {
-        if(bubble!=null)
-        bubble.Velocity = target.transform.position - bubble.transform.position;
-        bubble.Shooted = true;
+        if (bubble == null) return;
+        Bubble bb = bubble.GetComponent<Bubble>();
+        bb.Velocity = target.transform.position - bubble.transform.position;
+        bb.Shooted = true;
     }
 
     
@@ -227,14 +229,12 @@ public class Player : MonoBehaviour
 
     /* So long */
     public void die() {
+
+        
         throw new NotImplementedException();
     }
 
-    /* Move the target */
-    public void move_target() {
-        throw new NotImplementedException();
-    }
-
+    
     #endregion
 
 }

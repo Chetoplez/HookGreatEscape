@@ -29,8 +29,9 @@ public class HandlePlayerStatus : MonoBehaviour {
     /* Can the character jump? */
     private bool can_jump = true;
     public bool Can_jump { get { return can_jump; } }
-
-
+    /* Can the character shoot? */
+    private bool can_shoot = true;
+    public bool Can_Shoot { get { return can_shoot; } set { can_shoot = value; } }
 
     void Update() {
 

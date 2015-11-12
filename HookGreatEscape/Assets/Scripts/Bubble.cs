@@ -5,7 +5,7 @@ using System;
 public class Bubble : MonoBehaviour {
 
     /* Velocity vector */
-    private Vector3 velocity;
+    private Vector3 velocity=new Vector3(1f,0f,0f);
     public Vector3 Velocity{
         get { return velocity; }
         set{ velocity = value; }
@@ -50,8 +50,8 @@ public class Bubble : MonoBehaviour {
                 alive = false;
                 die();
             }
-            else
-                this.transform.Translate(velocity * speed * Time.deltaTime);
+            
+            this.transform.Translate(velocity * speed * Time.deltaTime);
         }
 	}
 
@@ -65,11 +65,13 @@ public class Bubble : MonoBehaviour {
 
     /* ....and POP! */
     public void die() {
+        Debug.Log("Bubble: POP!");
         throw new NotImplementedException();
     }
 
     /* Encapsule an enemy */
     public void encapsule() {
+        Debug.Log("Bubble: Enemy encapsulated!");
         throw new NotImplementedException();
     }
 

@@ -34,7 +34,7 @@ public class HandlePlayerInput : MonoBehaviour {
         
         if (player != null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 if (can_create_bubble)
                     create_bubble();
@@ -45,6 +45,7 @@ public class HandlePlayerInput : MonoBehaviour {
 
             if (Input.GetMouseButtonUp(0))
             {
+                
                 if (bubble_holding)
                       shoot_bubble();
             }
