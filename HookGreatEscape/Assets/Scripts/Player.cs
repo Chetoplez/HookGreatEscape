@@ -204,6 +204,7 @@ public class Player : MonoBehaviour
         if (bubble == null) return;
         Bubble bb= bubble.GetComponent<Bubble>();
         bb.grow();
+        bb.Shooting_position = this.pistol.transform.position;
     }
 
     /* Shoot a bubble! */

@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+[RequireComponent(typeof(CircleCollider2D))]
 public class Bubble : MonoBehaviour {
 
     /* Velocity vector */
@@ -19,6 +20,9 @@ public class Bubble : MonoBehaviour {
     private bool shooted = false;
     public bool Shooted { get { return shooted; } set { shooted = value; } }
 
+
+
+
 	/* Life of the bubble in seconds */
     [Range(1,10)]
     public float bubble_life = 10;
@@ -32,13 +36,15 @@ public class Bubble : MonoBehaviour {
     [Range(2,10)]
     public int max_growing_factor = 10;
 
-    
+    private CircleCollider2D circle;
+    /* Where the bubble will be shooted */
+    private Vector3 shooting_position= Vector3.zero;
+    public Vector3 Shooting_position { get { return shooting_position; } set { shooting_position = value; } }
 
-
-	void Start () {
-	
-	}
-	
+    void Start() { 
+        circle=GetComponent<CircleCollider2D>();
+        this.shooting_position = this.transform.position;
+    }
 	
 	void Update () {
 
@@ -50,9 +56,12 @@ public class Bubble : MonoBehaviour {
                 alive = false;
                 die();
             }
-            
+
             this.transform.Translate(velocity * speed * Time.deltaTime);
         }
+        else
+            this.transform.position = shooting_position;
+        
 	}
 
     /* Became bigger....bigger...bigger... */
@@ -74,9 +83,16 @@ public class Bubble : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    /* Check if encapsuled an enemy */
-    void OnTriggerEnter2D(Collider2D other) { 
+   
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag != "Pirate") return;
         
+    }
+
+    /* Check if encapsuled an enemy */
+    bool is_encapsuled(GameObject other) {
+        
+        return false;
     }
 
 }

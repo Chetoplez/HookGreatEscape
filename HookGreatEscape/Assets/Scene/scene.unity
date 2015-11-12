@@ -525,7 +525,7 @@ GameObject:
   - 50: {fileID: 1498943923}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Hook
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

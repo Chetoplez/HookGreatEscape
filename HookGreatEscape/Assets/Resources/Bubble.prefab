@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21226210}
   - 114: {fileID: 11420824}
   - 61: {fileID: 6105320}
+  - 50: {fileID: 5038682}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Untagged
@@ -25,11 +26,27 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9.10660839, y: -.00996738672, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5038682
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167348}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &6105320
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -42,7 +59,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 2.63000011, y: .579999983}
+  m_Size: {x: .589999974, y: .579999983}
 --- !u!114 &11420824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -55,9 +72,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bubble_life: 10
+  bubble_life: 5.4000001
   growing_factor: 1
-  max_growing_factor: 10
+  max_growing_factor: 4
 --- !u!212 &21226210
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -98,6 +115,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Size.x
       value: 2.63000011
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: max_growing_factor
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bubble_life
+      value: 5.4000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
