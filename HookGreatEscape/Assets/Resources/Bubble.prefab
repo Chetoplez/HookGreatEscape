@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 481230}
   - 212: {fileID: 21226210}
   - 114: {fileID: 11420824}
-  - 61: {fileID: 6105320}
   - 50: {fileID: 5038682}
+  - 58: {fileID: 5843982}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.10660839, y: -.00996738672, z: 0}
+  m_LocalPosition: {x: -10.5761824, y: -.915650904, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,8 +47,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &6105320
-BoxCollider2D:
+--- !u!58 &5843982
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -59,7 +59,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .589999974, y: .579999983}
+  m_Radius: .25999999
 --- !u!114 &11420824
 MonoBehaviour:
   m_ObjectHideFlags: 1
