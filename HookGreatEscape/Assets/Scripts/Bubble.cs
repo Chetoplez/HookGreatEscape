@@ -26,6 +26,7 @@ public class Bubble : MonoBehaviour {
 	/* Life of the bubble in seconds */
     [Range(1,10)]
     public float bubble_life = 10;
+    private float old_life = 10;
     private bool alive = true;
 
     /* Growing factor of the bubble */
@@ -41,9 +42,12 @@ public class Bubble : MonoBehaviour {
     private Vector3 shooting_position= Vector3.zero;
     public Vector3 Shooting_position { get { return shooting_position; } set { shooting_position = value; } }
 
+    private bool encapsuled = false;
+
     void Start() { 
         circle=GetComponent<CircleCollider2D>();
         this.shooting_position = this.transform.position;
+        old_life = bubble_life;
     }
 	
 	void Update () {
@@ -69,8 +73,6 @@ public class Bubble : MonoBehaviour {
         if (shooted) return;
         this.transform.localScale += new Vector3(1f * growing_factor, 1f*growing_factor,0f)*Time.deltaTime;
         this.circle.radius += (growing_factor/2)*Time.deltaTime;
-        Debug.Log("Radius change...=" + this.circle.radius);
-        Debug.Log("Bounds size change..." + circle.bounds.size/2);
         if (this.transform.localScale.x >= max_growing_factor)
             die();
     }
@@ -89,11 +91,13 @@ public class Bubble : MonoBehaviour {
    
     void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag != "Pirate") return;
-        if (is_encapsuled(other.gameObject))
+        if (is_encapsuled(other.gameObject) && !encapsuled)
         {
-            /* TODO:: assign new value to bubble life, block the enemy and make him a child of the bubble */
+            encapsuled = true;
+            /* TODO:: block the enemy and make him a child of the bubble */
             Debug.Log("Inside the circle!!");
-            Debug.Break();
+            velocity = new Vector3(0f,1f,0f);
+            bubble_life = old_life;
         }
     }
 
@@ -114,21 +118,6 @@ public class Bubble : MonoBehaviour {
         var bottom_left = other.transform.position + new Vector3(center.x - size.x , center.y - size.y);
         var bottom_right = other.transform.position + new Vector3(center.x + size.x, center.y - size.y);
 
-        /*
-        Debug.DrawLine(top_left,top_right,Color.red);
-        Debug.DrawLine(bottom_left,top_left,Color.red);
-        Debug.DrawLine(top_right,bottom_right,Color.red);
-        Debug.DrawLine(bottom_left,bottom_right,Color.red); 
-        */
-
-        if((Vector3.Distance(top_left,center_circle)<=radius_circle) )
-        Debug.Log("Top left inside" );
-        if ((Math.Pow((top_right.x - center_circle.x), 2) + Math.Pow((top_right.y - center_circle.y), 2) < Math.Pow(radius_circle, 2)))
-        Debug.Log("Top right inside");
-        if ((Math.Pow((bottom_right.x - center_circle.x), 2) + Math.Pow((bottom_right.y - center_circle.y), 2) < Math.Pow(radius_circle, 2)))
-        Debug.Log("Bottom right inside " );
-        if ((Math.Pow((bottom_left.x - center_circle.x), 2) + Math.Pow((bottom_left.y - center_circle.y), 2) < Math.Pow(radius_circle, 2)))
-        Debug.Log("Bottom left inside " );
 
         return ( Mathf.Pow((top_left.x - center_circle.x),2) + Mathf.Pow((top_left.y-center_circle.y),2)< Mathf.Pow( radius_circle,2)
                  &&
