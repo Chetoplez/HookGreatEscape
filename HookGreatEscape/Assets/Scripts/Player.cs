@@ -51,6 +51,10 @@ public class Player : MonoBehaviour
     /* This is the target that help with the shoot direction */
     public GameObject target = null;
     private HandlePlayerStatus player_status = null;
+    /* Starting point of a bubble */
+    public GameObject pistol = null;
+    /* This is the bubble that will be created  */
+    private Bubble bubble = null;
 
     #endregion
 
@@ -60,6 +64,9 @@ public class Player : MonoBehaviour
     {
 	    player_status= GetComponent<HandlePlayerStatus>();
         collider= GetComponent<Collider2D>();
+        if (target == null || pistol == null)
+            Debug.Log("Target or Pistol null!!");
+
 
         /* To fix... depends on the collider that we have */
         BoxCollider2D box_collider = collider as BoxCollider2D;
@@ -187,10 +194,25 @@ public class Player : MonoBehaviour
         _raycast_top_right = transform.position + new Vector3(center.x + size.x - skin_width, center.y - size.y - skin_width);
     }
 
+    /*  Create a bubble */
+    public void create_bubble() {
+        bubble = new Bubble();
+    }
+    
+    /* Grow the bubble */
+    public void grow_bubble() {
+        if(bubble!=null)
+        bubble.grow();
+    }
+
     /* Shoot a bubble! */
     public void shoot() {
-        throw new NotImplementedException();
+        if(bubble!=null)
+        bubble.Shooted = true;
     }
+
+    
+
 
     /* Hitted by a pirate or by a bomb */
     public void hit(int damage=1) {
