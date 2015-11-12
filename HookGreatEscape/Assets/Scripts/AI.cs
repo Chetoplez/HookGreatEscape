@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class AI : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class AI : MonoBehaviour
             doSomething();
             Debug.Log("Stato: " + currentState);
         }
+        else
+            throwBomb();
     }
 
     public void wandering()
@@ -75,10 +78,15 @@ public class AI : MonoBehaviour
         Destroy(this.gameObject); //controllare
     }
 
-    public void confuse() { }
+    public void confuse() {
+        throw new NotImplementedException();
+    }
 
     public void throwBomb()
-    {
+    {//Per istanziare il prefabs Bomb
+        GameObject prefab =(GameObject) Instantiate( Resources.Load<GameObject>("Bomb"));
+        
+        //   throw new NotImplementedException();
     }
 
     public void attack()
@@ -93,6 +101,7 @@ public class AI : MonoBehaviour
 
     public void showMessage()
     { // Riceve in ingresso un HUD e una posizione per scrivere il mess
+        throw new NotImplementedException();
     }
 
     public void flip() {
@@ -199,11 +208,6 @@ public class AI : MonoBehaviour
                 Debug.LogError("There is an error in chooseState, invalid state");
                 return AiState.pirateState.idle;
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-      
     }
 
     void OnTriggerStay2D(Collider2D other)
