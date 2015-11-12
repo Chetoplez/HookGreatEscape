@@ -15,7 +15,7 @@ public class AI : MonoBehaviour
     private Vector2 chaisingTarget = Vector2.zero;
     public LayerMask layerMask;
     public float speed = 1;
-
+    private GameObject hook;
 
     public float minDistanceChaising = 1;
     public float maxDistanceChaising = 150;
@@ -28,6 +28,7 @@ public class AI : MonoBehaviour
     {
         prevState = currentState = newState =  AiState.pirateState.idle;
         canAttack = canChasing = canThrowing = attacked = died = false;
+        hook = null;
     }
 
     // Update is called once per frame
@@ -39,6 +40,7 @@ public class AI : MonoBehaviour
             newState = chooseState(currentState, typePirate);
             changeState(newState);
             doSomething();
+            Debug.Log("Stato: " + currentState);
         }
     }
 
@@ -51,18 +53,16 @@ public class AI : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, hit.transform.position, speed * Time.deltaTime);
         }
-        else if (hit.collider != null && Mathf.Abs(hit.distance) <  minDepth) {
+        else if (hit.collider != null && Mathf.Abs(hit.distance) < minDepth)
+        {
             flip();
             pause = 1.5f;
-            }
-        //else 
-        //{
-        //    float value = (transform.localScale.x >= 0 ? (transform.position.x + transform.position.x *2) : transform.position.x - transform.position.x*2);
-        //    pause = 1.5f;
-        //    transform.position = Vector2.MoveTowards(transform.position, new Vector2(value, transform.position.y), speed * Time.deltaTime);
-        //    flip();
-        // // transform.Translate((( new Vector3(value, transform.position.y,transform.position.z) )- transform.position)*Time.deltaTime );    
-        //}
+        }
+        else {
+            flip();
+            pause = 1.5f;
+        }
+        //Fare se mai non si trova un collide
     }
 
     public void chasing()
@@ -83,7 +83,12 @@ public class AI : MonoBehaviour
 
     public void attack()
     {
-        //CambioSprite
+        if (hook != null) {
+            Debug.Log("Ho il game object Hook");
+            Player p = hook.GetComponent<Player>() ?? null;
+            if (p != null) p.hit();
+            //CambioSprite
+        }
     }
 
     public void showMessage()
@@ -107,25 +112,24 @@ public class AI : MonoBehaviour
             case AiState.pirateState.idle: break;
             case AiState.pirateState.wandering:
                 {
-                   // pause = 0.5f;
                     wandering();
                     break;
                 }
             case AiState.pirateState.chasing:
                 {
-                   // pause = 1;
                     chasing();
                     break;
                 }
             case AiState.pirateState.attack:
                 {
+                    pause = 1.5f;
                     if (typePirate.Equals(AiState.pirate.verySober)) throwBomb();
                     else attack();
                     break;
                 }
             case AiState.pirateState.blocked:
                 {
-                   // pause = 1.5f;
+                    pause = 2;
                     break;
                 }
             case AiState.pirateState.throwing:
@@ -199,10 +203,7 @@ public class AI : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Hook")
-        {
-
-        }
+      
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -216,6 +217,7 @@ public class AI : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
                 Debug.DrawLine(transform.position, direction*maxDistanceChaising);
                 if (hit.collider != null && hit.rigidbody.tag  == "Hook") {
+                    hook = other.gameObject;
                     if (Mathf.Abs(hit.distance) >= minDistanceChaising && Mathf.Abs(hit.distance) < maxDistanceChaising) {
                         chaisingTarget = new Vector2(transform.position.x + hit.transform.position.x + 5, transform.position.y);
                         canChasing = true;
@@ -224,8 +226,10 @@ public class AI : MonoBehaviour
                         canChasing = false;
                         canAttack = true;
                     }
-                } else {
+                 }else
+                {
                     canChasing = canAttack = false;
+                    Debug.Log("Sei in OntriggerStay tutto a false");
                 }
             }
         }
