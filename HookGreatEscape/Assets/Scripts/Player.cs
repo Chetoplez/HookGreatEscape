@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
         if (this.velocity.y < (-max_velocity_y))
             this.velocity.y = -max_velocity_y;
         else
-            this.velocity.y -=  (gravity_factor);
+            this.velocity.y -=  (gravity_factor*0.2f);
     }
 
     /* Add force to our character */
@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
         var ray_origin = is_going_up ? _raycast_top_left : _raycast_bottom_left;
 
         //ray_origin.x += velocity.x;
-        ray_distance = skin_width * 2;
+        ray_distance = skin_width * 1.5f;
         bool collision_detected = false;
         for (int i = 0; i < total_vertical_rays; i++)
         {
@@ -178,7 +178,6 @@ public class Player : MonoBehaviour
         if (!collision_detected)
         {
             player_status.state = HandlePlayerStatus.PlayerStatus.ONAIR;
-            Debug.Log("Nothing touched");
         }
     }
 
