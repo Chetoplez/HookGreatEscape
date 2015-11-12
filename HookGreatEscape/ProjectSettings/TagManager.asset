@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Hook
   - Pirate2
+  - Pirate
+  - Floor
   layers:
   - Default
   - TransparentFX

@@ -13,8 +13,11 @@ public class HandlePlayerInput : MonoBehaviour {
 
     private const float maximum_y_target= 0.2f;
     private const float minimum_y_target= -0.2f;
-    
-	
+
+    /* If holding a bubble this is true */
+    private bool bubble_holding=false;
+    private bool can_create_bubble = true;
+
 	void Update () {
         
         if (left_input())
@@ -28,6 +31,26 @@ public class HandlePlayerInput : MonoBehaviour {
         
         if (Input.GetAxis("Mouse Y") < 0)
             move_target(false);
+        
+        if (player != null)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                if (can_create_bubble)
+                    create_bubble();
+                else
+                    if(bubble_holding)
+                        grow_bubble();
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                
+                if (bubble_holding)
+                      shoot_bubble();
+            }
+        }
+
 	}
 
 
@@ -35,8 +58,8 @@ public class HandlePlayerInput : MonoBehaviour {
     #region Methods
 
 
-    bool left_input() { return (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A));}
-    bool right_input() { return (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)); }
+    bool left_input() { return (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A));}
+    bool right_input() { return (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)); }
     bool jump_input() { return (Input.GetKeyDown(KeyCode.Space)); }
 
     private void move_player(bool left=false) { 
@@ -71,6 +94,33 @@ public class HandlePlayerInput : MonoBehaviour {
         }
 
 
+    }
+
+    /* Create bubble */
+    private void create_bubble() {
+        check_player_presence();
+        if (bubble_holding) return;
+        bubble_holding = true;
+        can_create_bubble = false;
+        Player p = player.GetComponent<Player>();
+        p.create_bubble();
+    }
+
+    /* Grow bubble */
+    private void grow_bubble() {
+        check_player_presence();
+        if (!bubble_holding) return;
+        Player p = player.GetComponent<Player>();
+        p.grow_bubble();
+    }
+
+    /* Shoot the bubble */
+    private void shoot_bubble() {
+        check_player_presence();
+        can_create_bubble=true;
+        bubble_holding = false;
+        Player p = player.GetComponent<Player>();
+        p.shoot();
     }
 
     /* Search the player in the tree (not always will be, such as the main menu */
