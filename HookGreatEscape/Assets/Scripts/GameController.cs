@@ -34,5 +34,8 @@ public class GameController : MonoBehaviour {
     public static void change_level(int next_level=0) {
         Application.LoadLevel(next_level);
     }
+
+    
+
 }
 

@@ -18,11 +18,36 @@ public class HandlePlayerInput : MonoBehaviour {
     private bool bubble_holding=false;
     private bool can_create_bubble = true;
 
+    /* Personal Menu of the player */
+    private GameObject pause_menu = null;
+    public GameObject Pause_menu { set { pause_menu = value; } }
+    private bool pause = false;
+
 	void Update () {
         if (player != null)
         {
-            Player p = player.GetComponent<Player>();
 
+            if (pause_menu != null)
+            { 
+               PauseMenu pm= pause_menu.GetComponent<PauseMenu>();
+               if (pause_input())
+               {
+                   if (!pause)
+                   {
+                       pause = true;
+                       pm.pause();
+                   }
+                   else
+                   {
+                       pause = false;
+                       pm.resume();
+                   }
+               }
+            }
+
+        if (pause) return;
+        Player p = player.GetComponent<Player>();
+        
         if (left_input())
         {
             p.Is_Facing_right = false;
@@ -69,6 +94,7 @@ public class HandlePlayerInput : MonoBehaviour {
     bool left_input() { return (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A));}
     bool right_input() { return (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)); }
     bool jump_input() { return (Input.GetKeyDown(KeyCode.Space)); }
+    bool pause_input() { return (Input.GetKeyDown(KeyCode.Escape)); }
 
     private void move_player(bool left=false) { 
         if (!is_valid()) return;
@@ -77,7 +103,7 @@ public class HandlePlayerInput : MonoBehaviour {
         p.move(true,left);
     }
     private void jump() { if (!is_valid()) return; Player p = player.GetComponent<Player>(); p.jump(); }
-    private void pause() { if (!is_valid()) return; throw new NotImplementedException(); }
+    
 
     /* Move the target */
     private void move_target(bool up=true) {

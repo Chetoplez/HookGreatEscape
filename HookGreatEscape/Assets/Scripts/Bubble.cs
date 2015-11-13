@@ -12,6 +12,11 @@ public class Bubble : MonoBehaviour {
         set{ velocity = value; }
         }
 
+    /* UpSpeed */
+    [Range(1,10)]
+    public float up_speed = 1f;
+    
+
     /* Speed of the bubble */
     [Range(0,5)]
     public float speed = 1f;
@@ -97,19 +102,13 @@ public class Bubble : MonoBehaviour {
         DestroyObject(this.gameObject);
     }
 
-    /* Encapsule an enemy */
-    public void encapsule() {
-        Debug.Log("Bubble: Enemy encapsulated!");
-        throw new NotImplementedException();
-    }
-
    
     void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag != "Pirate" && other.gameObject.tag != "Bomb") return;
         if (is_encapsuled(other.gameObject) && !encapsuled)
         {
             encapsuled = true;
-            velocity = new Vector3(0f,1f,0f);
+            velocity = new Vector3(0f, 1f * up_speed, 0f);
             bubble_life = old_life;
 
             if (other.gameObject.tag == "Pirate")

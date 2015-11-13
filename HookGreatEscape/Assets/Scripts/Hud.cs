@@ -18,5 +18,6 @@ public class Hud : MonoBehaviour {
         live_text.text = lives.ToString();
     }
 
+    
     bool is_valid() { return live_text != null; }
 }
