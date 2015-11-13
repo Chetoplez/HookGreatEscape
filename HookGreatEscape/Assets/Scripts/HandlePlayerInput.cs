@@ -24,7 +24,7 @@ public class HandlePlayerInput : MonoBehaviour {
     private bool pause = false;
     public bool Pause { set { pause = value; } }
     private bool alive = true;
-    public bool Alive { get { return alive; } set { alive = true; } }
+    public bool Alive { get { return alive; } set { alive = value; } }
     private GameController game_controller;
 
 
@@ -43,8 +43,10 @@ public class HandlePlayerInput : MonoBehaviour {
                 /* If death must force the pause */
                if (!alive)
                {
+                   Debug.Log("Not alive player");
                    pause = true;
                    pm.pause();
+                   return;
                }
 
                

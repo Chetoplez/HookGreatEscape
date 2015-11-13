@@ -154,6 +154,7 @@ public class Player : MonoBehaviour
     public void hit(int damage=1) {
         this.lives--;
         alive = (lives > 0);
+        Debug.Log("Lives=" + this.lives);
         if (lives <= 0)
             die();
         GameController gc = GameObject.Find("GameController").GetComponent<GameController>() ?? null;
