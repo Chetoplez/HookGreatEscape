@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     /* Life of the player */
     private int lives = 5;
+    [Range(2,5)]
+    public int max_lives = 5;
 
     /* Player Speed */
     [Range(0,10)]
@@ -153,6 +155,16 @@ public class Player : MonoBehaviour
             die();
         GameController gc = GameObject.Find("GameController").GetComponent<GameController>() ?? null;
         if(gc!=null)
+            gc.Lives = this.lives;
+    }
+
+    /* Gain life */
+    public void gain_life() {
+        this.lives++;
+        if (this.lives > max_lives)
+            this.lives = max_lives;
+        GameController gc = GameObject.Find("GameController").GetComponent<GameController>() ?? null;
+        if (gc != null)
             gc.Lives = this.lives;
     }
 
