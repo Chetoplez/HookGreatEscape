@@ -26,7 +26,8 @@ public class LifeArea : MonoBehaviour {
     {
         if (other.gameObject.tag == "Hook" && takeLife) {
             Player p = other.gameObject.GetComponent<Player>() ?? null;
-            if (p != null) { //ToDO
+            if (p != null) {
+                p.gain_life();
             }
             Destroy(this.gameObject);
         }

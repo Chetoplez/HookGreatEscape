@@ -7,9 +7,7 @@ public class AI : MonoBehaviour
 
     #region Variabili
     public AiState.pirate typePirate;
-    
-    public float pause; //Quanto restare in pausa da quello stato
-
+    public float pause;
     private AiState.pirateState prevState, currentState, newState;
     private bool canAttack, canChasing, canThrowing, died,inAir,blocked;
 
@@ -18,18 +16,19 @@ public class AI : MonoBehaviour
         set { blocked = value; }
     }
 
-    private Vector2 prevPosition;
-    private Vector2 chaisingTarget = Vector2.zero;
+    private Vector2 chasingTarget = Vector2.zero;
     public LayerMask layerMask;
     public float speed = 1;
     private GameObject hook;
-
+    private int lifePirate;
     public float minDistanceChaising = 1;
     public float maxDistanceChaising = 150;
     private float maxDepth = 100; //Dove cercare "Hook"
     private float minDepth = 1;  //distanza massima per avvicinarsi a un oggetto
+
+    private Vector2 prevPosition;
     #endregion
-    
+
 
     // Use this for initialization
     void Start()
@@ -37,6 +36,7 @@ public class AI : MonoBehaviour
         prevState = currentState = newState =  AiState.pirateState.idle;
         canAttack = canChasing = canThrowing = blocked = died = false;
         hook = null;
+        choosePirateLife(typePirate);
     }
 
     // Update is called once per frame
@@ -49,6 +49,19 @@ public class AI : MonoBehaviour
             changeState(newState);
             doSomething();
             Debug.Log("Stato: " + currentState);
+        }
+    }
+
+    public void choosePirateLife(AiState.pirate pirate) {
+        switch (pirate) {
+            case AiState.pirate.drunk: lifePirate = 1;
+                break;
+            case AiState.pirate.sober: lifePirate = 2;
+                break;
+            case AiState.pirate.verySober: lifePirate = 3;
+                break;
+            default: Debug.LogError("An error in AI choosePirateLifeState");
+                break;
         }
     }
 
@@ -75,7 +88,7 @@ public class AI : MonoBehaviour
 
     public void chasing()
     {
-       transform.Translate(chaisingTarget * Time.deltaTime);
+       transform.Translate(chasingTarget * Time.deltaTime);
         //Cambio Sprite
     }
 
@@ -84,7 +97,10 @@ public class AI : MonoBehaviour
     }
 
     public void confuse() {
-        throw new NotImplementedException();
+        lifePirate -= 1;
+        if (lifePirate == 0) {
+            died = true;
+        }
     }
 
     public void throwBomb()
@@ -151,8 +167,9 @@ public class AI : MonoBehaviour
                 }
             case AiState.pirateState.confuse:
                 {
+                    pause = 1;
+                    confuse();
                     if (died) die();
-                    else confuse();
                     break;
                     
                 }
@@ -226,7 +243,7 @@ public class AI : MonoBehaviour
                 if (hit.collider != null && hit.rigidbody.tag  == "Hook") {
                     hook = other.gameObject;
                     if (Mathf.Abs(hit.distance) >= minDistanceChaising && Mathf.Abs(hit.distance) < maxDistanceChaising) {
-                        chaisingTarget = new Vector2(transform.position.x + hit.transform.position.x + 5, transform.position.y);
+                        chasingTarget = new Vector2(transform.position.x + hit.transform.position.x + 5, transform.position.y);
                         canChasing = true;
                         canAttack = false;
                     } else if(hit.distance < minDistanceChaising){
