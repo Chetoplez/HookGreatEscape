@@ -243,7 +243,7 @@ public class AI : MonoBehaviour
                 Vector2 direction = (transform.localScale.x >= 0 ? Vector2.right : Vector2.left);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
                 Debug.DrawLine(transform.position, direction * maxDistanceChaising);
-                if (!hit) return;
+                if (hit.collider == null) return;
                 if (hit.collider != null && hit.rigidbody.gameObject.tag == "Hook")
                 {
                     hook = other.gameObject;
@@ -278,7 +278,7 @@ public class AI : MonoBehaviour
                 Vector2 direction = (transform.localScale.x >= 0 ? Vector2.right : Vector2.left);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
                 Debug.DrawLine(transform.position, direction*maxDistanceChaising);
-                if (!hit) return;
+                if (hit.collider == null) return;
                 if (hit.collider != null && hit.rigidbody.gameObject.tag  == "Hook") {
                     hook = other.gameObject;
                     if (Mathf.Abs(hit.distance) >= minDistanceChaising && Mathf.Abs(hit.distance) < maxDistanceChaising) {
