@@ -11,7 +11,13 @@ public class AI : MonoBehaviour
     public float pause; //Quanto restare in pausa da quello stato
 
     private AiState.pirateState prevState, currentState, newState;
-    private bool canAttack, canChasing, canThrowing, attacked,died,inAir;
+    private bool canAttack, canChasing, canThrowing, attacked,died,inAir,blocked;
+
+    public bool Blocked {
+        get { return blocked; }
+        set { blocked = value; }
+    }
+
     private Vector2 prevPosition;
     private Vector2 chaisingTarget = Vector2.zero;
     public LayerMask layerMask;
