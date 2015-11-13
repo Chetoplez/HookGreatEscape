@@ -23,6 +23,14 @@ public class HandlePlayerInput : MonoBehaviour {
     public GameObject Pause_menu { set { pause_menu = value; } }
     private bool pause = false;
     public bool Pause { set { pause = value; } }
+    private bool alive = true;
+    public bool Alive { get { return alive; } set { alive = true; } }
+    private GameController game_controller;
+
+
+    void Start() {
+        game_controller = GetComponent<GameController>();
+    }
 
 	void Update () {
         if (player != null)
@@ -31,19 +39,29 @@ public class HandlePlayerInput : MonoBehaviour {
             if (pause_menu != null)
             { 
                PauseMenu pm= pause_menu.GetComponent<PauseMenu>();
-               if (pause_input())
+
+                /* If death must force the pause */
+               if (!alive)
                {
-                   if (!pause)
-                   {
-                       pause = true;
-                       pm.pause();
-                   }
-                   else
-                   {
-                       pause = false;
-                       pm.resume();
-                   }
+                   pause = true;
+                   pm.pause();
                }
+
+               
+                if (pause_input())
+                {
+                       if (!pause)
+                       {
+                           pause = true;
+                           pm.pause();
+                       }
+                       else
+                       {
+                           pause = false;
+                           pm.resume();
+                       }
+                }
+               
             }
 
         if (pause) return;

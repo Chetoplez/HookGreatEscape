@@ -104,7 +104,11 @@ public class Bubble : MonoBehaviour {
 
    
     void OnTriggerStay2D(Collider2D other) {
-        if (other.gameObject.tag != "Pirate" && other.gameObject.tag != "Bomb") return;
+        if (other.gameObject.tag != "Pirate" && other.gameObject.tag != "Bomb" && other.gameObject.tag!= "Floor") return;
+
+        if (other.gameObject.tag == "Floor")
+         die();
+        
         if (is_encapsuled(other.gameObject) && !encapsuled)
         {
             encapsuled = true;

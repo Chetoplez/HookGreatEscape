@@ -170,7 +170,8 @@ public class Player : MonoBehaviour
 
     /* So long */
     public void die() {
-        throw new NotImplementedException();
+        HandlePlayerInput hpi = GameObject.Find("GameController").GetComponent<HandlePlayerInput>() ?? null;
+        hpi.Alive = false;
     }
 
     
