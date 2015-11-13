@@ -42,6 +42,8 @@ public class Bubble : MonoBehaviour {
     private bool encapsuled = false;
     private AI encapsuled_ai = null;
     private float gravityscale_ai = 0f;
+    private GameObject bomb = null;
+    private bool bomb_encapsuled = false;
 
     void Start() { 
         circle=GetComponent<CircleCollider2D>();
@@ -80,10 +82,17 @@ public class Bubble : MonoBehaviour {
     public void die() {
         if (encapsuled)
         {
-            encapsuled_ai.gameObject.transform.parent = null;
-            encapsuled_ai.Blocked = false;
-            Rigidbody2D ai_rigidbody = encapsuled_ai.gameObject.GetComponent<Rigidbody2D>() ?? null;
-            ai_rigidbody.gravityScale = gravityscale_ai;
+            if (bomb_encapsuled)
+            {
+                bomb.transform.parent = null;
+                change_scale_factor(bomb,false);
+            }
+            else
+            {
+                encapsuled_ai.gameObject.transform.parent = null;
+                encapsuled_ai.Blocked = false;
+                change_scale_factor(encapsuled_ai.gameObject,false);
+            }
         }
         DestroyObject(this.gameObject);
     }
@@ -103,20 +112,35 @@ public class Bubble : MonoBehaviour {
             velocity = new Vector3(0f,1f,0f);
             bubble_life = old_life;
 
-            encapsuled_ai = parent(other.gameObject).GetComponent<AI>() ?? null;
-            if (encapsuled_ai != null)
+            if (other.gameObject.tag == "Pirate")
             {
-                encapsuled_ai.transform.parent = this.transform;
-                encapsuled_ai.Blocked = true;
-                Rigidbody2D ai_rigidbody = encapsuled_ai.gameObject.GetComponent<Rigidbody2D>() ?? null;
-                if (ai_rigidbody != null)
+                encapsuled_ai = parent(other.gameObject).GetComponent<AI>() ?? null;
+                if (encapsuled_ai != null)
                 {
-                    gravityscale_ai = ai_rigidbody.gravityScale;
-                    ai_rigidbody.gravityScale = 0f;
+                    encapsuled_ai.transform.parent = this.transform;
+                    encapsuled_ai.Blocked = true;
+                    change_scale_factor(encapsuled_ai.gameObject,true);
                 }
+            }
+            else
+            {
+                bomb_encapsuled = true;
+                bomb = other.gameObject;
+                bomb.transform.parent = this.transform;
+                change_scale_factor(bomb,true);
             }
         }
     }
+
+    /* Set the gravity scale factor of the encapsuled gameobject*/
+    private void change_scale_factor(GameObject other, bool set=false) {
+        Rigidbody2D other_rigidbody = other.GetComponent<Rigidbody2D>() ?? null;
+        if (other_rigidbody == null) return;
+        if(set)
+            gravityscale_ai = other_rigidbody.gravityScale;
+        other_rigidbody.gravityScale = (set)? 0f : gravityscale_ai;
+    }
+
     /* Shortcut */
     private static GameObject parent(GameObject other) { return other.transform.parent.gameObject; }
 
