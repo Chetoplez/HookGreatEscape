@@ -27,7 +27,8 @@ public class Player : MonoBehaviour
     private Vector3 velocity=Vector3.zero;
     public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
     private float max_velocity_y = 5f;
-
+    private bool is_facing_right = true;
+    public bool Is_Facing_right { set { is_facing_right = value; } }
 
     /* this is the gravity */
     [Range(0,10)]
@@ -86,11 +87,6 @@ public class Player : MonoBehaviour
 
 	}
 	
-	
-	void Update () 
-    {
-       
-    }
 
     #endregion
 
@@ -99,12 +95,21 @@ public class Player : MonoBehaviour
  
 
     /* Move by a fixed quantity */
-    public void move(bool horizontal=true){
+    public void move(bool horizontal=true,bool left=false){
         Rigidbody2D rigidbody = this.GetComponent<Rigidbody2D>();
+        is_facing_right = this.transform.localScale.x > 0;
         if (horizontal)
+        {
+            if ((is_facing_right && left) || (!left && !is_facing_right))
+                flip();
             rigidbody.AddForce(new Vector2((this.forward) ? this.speed_factor : -speed_factor, 0f));
+        }
         else
-            rigidbody.AddForce(new Vector2(0f,jump_speed*10));
+            rigidbody.AddForce(new Vector2(0f, jump_speed * 10));
+    }
+
+    private void flip() {
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
     /* Move vertically */

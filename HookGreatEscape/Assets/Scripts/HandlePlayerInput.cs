@@ -19,11 +19,20 @@ public class HandlePlayerInput : MonoBehaviour {
     private bool can_create_bubble = true;
 
 	void Update () {
-        
+        if (player != null)
+        {
+            Player p = player.GetComponent<Player>();
+
         if (left_input())
+        {
+            p.Is_Facing_right = false;
             move_player(true);
+        }
         if (right_input())
-            move_player(false);
+        {
+            p.Is_Facing_right = true;
+            move_player(false);  
+        }
         if (jump_input())
             jump();
         if (Input.GetAxis("Mouse Y")>0)
@@ -32,8 +41,7 @@ public class HandlePlayerInput : MonoBehaviour {
         if (Input.GetAxis("Mouse Y") < 0)
             move_target(false);
         
-        if (player != null)
-        {
+       
             if (Input.GetMouseButton(0))
             {
                 if (can_create_bubble)
@@ -66,7 +74,7 @@ public class HandlePlayerInput : MonoBehaviour {
         if (!is_valid()) return;
         Player p = player.GetComponent<Player>();
         p.Forward = (left)? false:true;
-        p.move();
+        p.move(true,left);
     }
     private void jump() { if (!is_valid()) return; Player p = player.GetComponent<Player>(); p.jump(); }
     private void pause() { if (!is_valid()) return; throw new NotImplementedException(); }
