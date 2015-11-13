@@ -88,7 +88,8 @@ public class AI : MonoBehaviour
 
     public void chasing()
     {
-       transform.Translate(chasingTarget * Time.deltaTime);
+        //transform.Translate(chasingTarget * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position,chasingTarget, speed * Time.deltaTime);
         //Cambio Sprite
     }
 
@@ -240,7 +241,7 @@ public class AI : MonoBehaviour
                 Vector2 direction = (transform.localScale.x >= 0 ? Vector2.right : Vector2.left);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
                 Debug.DrawLine(transform.position, direction*maxDistanceChaising);
-                if (hit.collider != null && hit.rigidbody.tag  == "Hook") {
+                if (hit.collider != null && hit.rigidbody.gameObject.tag  == "Hook") {
                     hook = other.gameObject;
                     if (Mathf.Abs(hit.distance) >= minDistanceChaising && Mathf.Abs(hit.distance) < maxDistanceChaising) {
                         chasingTarget = new Vector2(transform.position.x + hit.transform.position.x + 5, transform.position.y);
