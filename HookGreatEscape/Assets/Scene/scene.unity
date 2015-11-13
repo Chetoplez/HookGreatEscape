@@ -167,9 +167,10 @@ GameObject:
   - 4: {fileID: 80452620}
   - 212: {fileID: 80452619}
   - 61: {fileID: 80452621}
+  - 114: {fileID: 80452622}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Pirate
+  m_TagString: Pirate2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +210,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.42000008, y: -2.96000004, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 241954016}
   m_Father: {fileID: 0}
   m_RootOrder: 7
 --- !u!61 &80452621
@@ -222,9 +224,28 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: .159999996}
   serializedVersion: 2
-  m_Size: {x: .289999992, y: .49000001}
+  m_Size: {x: 1.97000003, y: .850000024}
+--- !u!114 &80452622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 80452618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf77bb05197b2149be044f4f005df07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typePirate: 0
+  pause: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 257
+  speed: 1
+  minDistanceChaising: 1
+  maxDistanceChaising: 150
 --- !u!1 &148822593
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +300,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!1 &241954015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 241954016}
+  - 61: {fileID: 241954017}
+  m_Layer: 0
+  m_Name: Pirate_Trigger
+  m_TagString: Pirate
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &241954016
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 241954015}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 80452620}
+  m_RootOrder: 0
+--- !u!61 &241954017
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 241954015}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: .270000011, y: .49000001}
 --- !u!1 &355080751
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +717,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: .5
   m_AngularDrag: 0
-  m_GravityScale: .200000003
+  m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1

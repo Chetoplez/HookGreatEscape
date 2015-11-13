@@ -19,10 +19,7 @@ public class Bubble : MonoBehaviour {
     /* Holded or shooted? */
     private bool shooted = false;
     public bool Shooted { get { return shooted; } set { shooted = value; } }
-
-
-
-
+   
 	/* Life of the bubble in seconds */
     [Range(1,10)]
     public float bubble_life = 10;
@@ -43,6 +40,8 @@ public class Bubble : MonoBehaviour {
     public Vector3 Shooting_position { get { return shooting_position; } set { shooting_position = value; } }
 
     private bool encapsuled = false;
+    private AI encapsuled_ai = null;
+
 
     void Start() { 
         circle=GetComponent<CircleCollider2D>();
@@ -79,6 +78,11 @@ public class Bubble : MonoBehaviour {
 
     /* ....and POP! */
     public void die() {
+        if (encapsuled)
+        {
+            encapsuled_ai.gameObject.transform.parent = null;
+            encapsuled_ai.Blocked = false;
+        }
         DestroyObject(this.gameObject);
     }
 
@@ -94,12 +98,19 @@ public class Bubble : MonoBehaviour {
         if (is_encapsuled(other.gameObject) && !encapsuled)
         {
             encapsuled = true;
-            /* TODO:: block the enemy and make him a child of the bubble */
-            Debug.Log("Inside the circle!!");
             velocity = new Vector3(0f,1f,0f);
             bubble_life = old_life;
+
+            encapsuled_ai = parent(other.gameObject).GetComponent<AI>() ?? null;
+            if (encapsuled_ai != null)
+            {
+                encapsuled_ai.transform.parent = this.transform;
+                encapsuled_ai.Blocked = true;
+            }
         }
     }
+    /* Shortcut */
+    private static GameObject parent(GameObject other) { return other.transform.parent.gameObject; }
 
     /* Check if encapsuled an enemy */
     bool is_encapsuled(GameObject other) {
