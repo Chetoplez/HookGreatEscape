@@ -3,18 +3,39 @@ using System.Collections;
 
 public class WinArea : MonoBehaviour {
 
-    // Use this for initialization
+    private bool win, canWin;
+
     void Start() {
-
+        win = canWin =  false;
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
-    public void doSomething()
+    void Update()
     {
+        if (canWin && Input.GetMouseButtonDown(0))
+        {
+            win = true;
+        }
+    }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Hook")
+        {
+            canWin= true;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other) {
+        if (other.gameObject.tag == "Hook" && win) {
+            GameController.change_level();
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Hook")
+        {
+            canWin = false;
+        }
     }
 }
