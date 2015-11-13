@@ -25,8 +25,6 @@ public class AI : MonoBehaviour
     public float maxDistanceChaising = 150;
     private float maxDepth = 100; //Dove cercare "Hook"
     private float minDepth = 1;  //distanza massima per avvicinarsi a un oggetto
-
-    private Vector2 prevPosition;
     #endregion
 
 
@@ -88,7 +86,6 @@ public class AI : MonoBehaviour
 
     public void chasing()
     {
-        
         transform.position = Vector2.MoveTowards(transform.position,chasingTarget, speed * Time.deltaTime);
         //Cambio Sprite
     }
@@ -112,9 +109,11 @@ public class AI : MonoBehaviour
     public void attack()
     {
         if (hook != null) {
-            Debug.Log("Ho il game object Hook");
             Player p = hook.GetComponent<Player>() ?? null;
-            if (p != null) p.hit();
+            if (p != null)
+            {  if(p.Alive)
+                p.hit();
+            }
             //CambioSprite
         }
     }
@@ -231,44 +230,6 @@ public class AI : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        //if (other.gameObject.tag == "Hook")
-        //{
-        //    if (typePirate.Equals(AiState.pirate.verySober))
-        //    {
-        //        canThrowing = true;
-        //    }
-        //    else
-        //    {
-        //        Vector2 direction = (transform.localScale.x >= 0 ? Vector2.right : Vector2.left);
-        //        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
-        //        Debug.DrawLine(transform.position, direction * maxDistanceChaising);
-        //        if (hit.collider == null) return;
-                
-        //        if (hit.collider != null && hit.transform.gameObject.tag == "Hook")
-        //        {
-        //            hook = other.gameObject;
-        //            if (Mathf.Abs(hit.distance) >= minDistanceChaising && Mathf.Abs(hit.distance) < maxDistanceChaising)
-        //            {
-        //                chasingTarget = new Vector2(transform.position.x + hit.transform.position.x + 5, transform.position.y);
-        //                canChasing = true;
-        //                canAttack = false;
-        //            }
-        //            else if (hit.distance < minDistanceChaising)
-        //            {
-        //                canChasing = false;
-        //                canAttack = true;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            canChasing = canAttack = false;
-        //        }
-        //    }
-        //}
-
-    }
-
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.tag == "Hook") {
@@ -293,7 +254,6 @@ public class AI : MonoBehaviour
                  }else
                 {
                     canChasing = canAttack = false;
-                    Debug.Log("Sei in OntriggerStay tutto a false");
                 }
             }
         }
