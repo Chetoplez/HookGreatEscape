@@ -9,10 +9,18 @@ public class Hud : MonoBehaviour {
     public UnityEngine.UI.Text live_text;
     private GameController gc = null;
 
+    public GameObject message;
+    public GameObject message_button_exit;
+    private bool message_show = false;
+    public bool Message_show { get { return message_show; } set { message_show = value; } }
+
     void Start() {
         if (live_text == null)
             Debug.LogError("HUD: not linked the live_number_text object");
         get_initial_life();
+
+       
+
     }
 
     void Update() {
@@ -20,6 +28,10 @@ public class Hud : MonoBehaviour {
         if(gc!=null)
          this.lives = gc.Lives;
         live_text.text = lives.ToString();
+        if (message != null)
+            message.SetActive(message_show);
+        if (message_button_exit)
+            message_button_exit.SetActive(message_show);
     }
 
 
