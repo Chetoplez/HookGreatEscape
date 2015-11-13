@@ -41,7 +41,7 @@ public class Bubble : MonoBehaviour {
 
     private bool encapsuled = false;
     private AI encapsuled_ai = null;
-
+    private float gravityscale_ai = 0f;
 
     void Start() { 
         circle=GetComponent<CircleCollider2D>();
@@ -82,6 +82,8 @@ public class Bubble : MonoBehaviour {
         {
             encapsuled_ai.gameObject.transform.parent = null;
             encapsuled_ai.Blocked = false;
+            Rigidbody2D ai_rigidbody = encapsuled_ai.gameObject.GetComponent<Rigidbody2D>() ?? null;
+            ai_rigidbody.gravityScale = gravityscale_ai;
         }
         DestroyObject(this.gameObject);
     }
@@ -94,7 +96,7 @@ public class Bubble : MonoBehaviour {
 
    
     void OnTriggerStay2D(Collider2D other) {
-        if (other.gameObject.tag != "Pirate") return;
+        if (other.gameObject.tag != "Pirate" && other.gameObject.tag != "Bomb") return;
         if (is_encapsuled(other.gameObject) && !encapsuled)
         {
             encapsuled = true;
@@ -106,6 +108,12 @@ public class Bubble : MonoBehaviour {
             {
                 encapsuled_ai.transform.parent = this.transform;
                 encapsuled_ai.Blocked = true;
+                Rigidbody2D ai_rigidbody = encapsuled_ai.gameObject.GetComponent<Rigidbody2D>() ?? null;
+                if (ai_rigidbody != null)
+                {
+                    gravityscale_ai = ai_rigidbody.gravityScale;
+                    ai_rigidbody.gravityScale = 0f;
+                }
             }
         }
     }

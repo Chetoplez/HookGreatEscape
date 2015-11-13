@@ -76,7 +76,14 @@ public class Player : MonoBehaviour
 
         var collider_heigth = box_collider.size.y * Mathf.Abs(transform.localScale.y) - (2 * skin_width);
         _vertical_distance_between_rays = collider_heigth / (total_horizontal_rays - 1);
-        
+
+        GameObject game_controller = GameObject.Find("GameController") ?? null;
+        if (game_controller != null)
+        { 
+            HandlePlayerInput hpi= game_controller.GetComponent<HandlePlayerInput>();
+            hpi.player = this.gameObject;
+        }
+
 	}
 	
 	

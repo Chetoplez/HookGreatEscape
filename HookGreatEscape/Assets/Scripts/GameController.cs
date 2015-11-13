@@ -29,5 +29,10 @@ public class GameController : MonoBehaviour {
         }
     }
 
+
+    /* Load level. Must call it from WinArea */
+    public static void change_level(int next_level=0) {
+        Application.LoadLevel(next_level);
+    }
 }
 
