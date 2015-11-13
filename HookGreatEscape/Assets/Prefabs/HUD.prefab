@@ -390,6 +390,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   live_text: {fileID: 11441862}
+  message: {fileID: 177062}
+  message_button_exit: {fileID: 178934}
 --- !u!222 &22221810
 CanvasRenderer:
   m_ObjectHideFlags: 1

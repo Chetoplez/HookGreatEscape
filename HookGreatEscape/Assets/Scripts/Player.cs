@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     private int lives = 5;
     [Range(2,5)]
     public int max_lives = 5;
+    private bool alive = true;
+    public bool Alive { get { return alive; } }
 
     /* Player Speed */
     [Range(0,10)]
@@ -151,7 +153,8 @@ public class Player : MonoBehaviour
     /* Hitted by a pirate or by a bomb */
     public void hit(int damage=1) {
         this.lives--;
-        if (lives == 0)
+        alive = (lives > 0);
+        if (lives <= 0)
             die();
         GameController gc = GameObject.Find("GameController").GetComponent<GameController>() ?? null;
         if(gc!=null)
