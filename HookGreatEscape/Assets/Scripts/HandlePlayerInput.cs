@@ -22,6 +22,7 @@ public class HandlePlayerInput : MonoBehaviour {
     private GameObject pause_menu = null;
     public GameObject Pause_menu { set { pause_menu = value; } }
     private bool pause = false;
+    public bool Pause { set { pause = value; } }
 
 	void Update () {
         if (player != null)

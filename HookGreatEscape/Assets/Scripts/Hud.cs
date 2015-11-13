@@ -11,6 +11,7 @@ public class Hud : MonoBehaviour {
     void Start() {
         if (live_text == null)
             Debug.LogError("HUD: not linked the live_number_text object");
+        get_initial_life();
     }
 
     void Update() {
@@ -18,6 +19,14 @@ public class Hud : MonoBehaviour {
         live_text.text = lives.ToString();
     }
 
-    
+
+    void get_initial_life() {
+        GameController gc = GameObject.Find("GameController").GetComponent<GameController>() ?? null;
+        if (gc != null)
+        {
+            this.lives = gc.Lives;
+        }
+    }
+
     bool is_valid() { return live_text != null; }
 }

@@ -31,8 +31,8 @@ public class PauseMenu : MonoBehaviour {
         my_canvas.gameObject.SetActive(pause_activated);
 	}
 
-    public void restart() { Application.LoadLevel(level); pause_activated = false; Time.timeScale = 1; }
-    public void pause() { Time.timeScale = 0; pause_activated = true; }
-    public void resume() { Time.timeScale = 1; pause_activated = false; }
-    public void backtomain() { Application.LoadLevel(0); }
+    public void restart() { Application.LoadLevel(level); pause_activated = false; Time.timeScale = 1; hpi.Pause = false; }
+    public void pause() { Time.timeScale = 0; pause_activated = true; hpi.Pause = true; }
+    public void resume() { Time.timeScale = 1; pause_activated = false; hpi.Pause = false; }
+    public void backtomain() { Application.LoadLevel(0); hpi.Pause = false; }
 }
