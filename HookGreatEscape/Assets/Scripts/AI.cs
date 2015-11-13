@@ -11,7 +11,7 @@ public class AI : MonoBehaviour
     public float pause; //Quanto restare in pausa da quello stato
 
     private AiState.pirateState prevState, currentState, newState;
-    private bool canAttack, canChasing, canThrowing, attacked,died,inAir,blocked;
+    private bool canAttack, canChasing, canThrowing, died,inAir,blocked;
 
     public bool Blocked {
         get { return blocked; }
@@ -29,18 +29,20 @@ public class AI : MonoBehaviour
     private float maxDepth = 100; //Dove cercare "Hook"
     private float minDepth = 1;  //distanza massima per avvicinarsi a un oggetto
     #endregion
+    
 
     // Use this for initialization
     void Start()
     {
         prevState = currentState = newState =  AiState.pirateState.idle;
-        canAttack = canChasing = canThrowing = attacked = died = false;
+        canAttack = canChasing = canThrowing = blocked = died = false;
         hook = null;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         pause -= Time.deltaTime;
         if (pause <= 0)
         {
@@ -49,8 +51,6 @@ public class AI : MonoBehaviour
             doSomething();
             Debug.Log("Stato: " + currentState);
         }
-        else
-            throwBomb();
     }
 
     public void wandering()
@@ -90,9 +90,7 @@ public class AI : MonoBehaviour
 
     public void throwBomb()
     {//Per istanziare il prefabs Bomb
-        GameObject prefab =(GameObject) Instantiate( Resources.Load<GameObject>("Bomb"));
-        
-        //   throw new NotImplementedException();
+        GameObject prefab =(GameObject) Instantiate(Resources.Load<GameObject>("Bomb"));
     }
 
     public void attack()
@@ -170,7 +168,7 @@ public class AI : MonoBehaviour
         switch (state)
         {
             case AiState.pirateState.idle:
-                {   if (attacked) return AiState.pirateState.blocked;
+                {   if (blocked) return AiState.pirateState.blocked;
                     if (canThrowing) return AiState.pirateState.throwing;
                     if (canAttack) return AiState.pirateState.attack;
                     if (canChasing) return AiState.pirateState.chasing;
@@ -178,21 +176,21 @@ public class AI : MonoBehaviour
                 }
             case AiState.pirateState.wandering:
                 {
-                    if (attacked) return AiState.pirateState.blocked;
+                    if (blocked) return AiState.pirateState.blocked;
                     if (canAttack) return AiState.pirateState.attack;
                     if (canChasing) return AiState.pirateState.chasing;
                     return AiState.pirateState.wandering;
                 }
             case AiState.pirateState.chasing:
                 {
-                    if (attacked) return AiState.pirateState.blocked;
+                    if (blocked) return AiState.pirateState.blocked;
                     if (canAttack) return AiState.pirateState.attack; 
                     if (canChasing) return AiState.pirateState.chasing;
                     return AiState.pirateState.wandering;
                 }
             case AiState.pirateState.attack:
                 {
-                    if (attacked) return AiState.pirateState.blocked;
+                    if (blocked) return AiState.pirateState.blocked;
                     if (canAttack) return AiState.pirateState.attack;
                     if (canChasing) return AiState.pirateState.chasing;
                     return AiState.pirateState.idle;
@@ -203,7 +201,7 @@ public class AI : MonoBehaviour
                 }
             case AiState.pirateState.throwing:
                 {
-                    if (attacked) return AiState.pirateState.blocked;
+                    if (blocked) return AiState.pirateState.blocked;
                     return AiState.pirateState.idle;
                 }
             case AiState.pirateState.confuse:
