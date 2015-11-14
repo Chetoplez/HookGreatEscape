@@ -22,6 +22,8 @@ public class AI : MonoBehaviour
     private GameObject hook;
     private int lifePirate;
 
+    private int angle;
+    private Vector2 dirBomb;
     private BoxCollider2D col;
     private float minDistanceChaising = 10;
     private float maxDistanceChaising = 1;
@@ -85,9 +87,8 @@ public class AI : MonoBehaviour
         }
         else {
             flip();
-            pause = 1.5f;
+            pause = 2;
         }
-        //Fare se mai non si trova un collide
     }
 
     public void chasing()
@@ -112,6 +113,9 @@ public class AI : MonoBehaviour
     public void throwBomb()
     {//Per istanziare il prefabs Bomb
         GameObject prefab =(GameObject) Instantiate(Resources.Load<GameObject>("Bomb"));
+        prefab.GetComponent<Bomb>().direction = dirBomb;
+        prefab.GetComponent<Bomb>().piratePosition = transform.position;
+        prefab.GetComponent<Bomb>().angle = angle;
     }
 
     public void attack()
@@ -148,12 +152,14 @@ public class AI : MonoBehaviour
             case AiState.pirateState.idle: break;
             case AiState.pirateState.wandering:
                 {
+                    if(typePirate!=AiState.pirate.verySober)
                     wandering();
                     break;
                 }
             case AiState.pirateState.chasing:
                 {
-                    chasing();
+                    if (typePirate != AiState.pirate.verySober)
+                        chasing();
                     break;
                 }
             case AiState.pirateState.attack:
@@ -171,6 +177,7 @@ public class AI : MonoBehaviour
             case AiState.pirateState.throwing:
                 {
                     throwBomb();
+                    pause = 8;
                     break;
                 }
             case AiState.pirateState.confuse:
@@ -192,11 +199,14 @@ public class AI : MonoBehaviour
         switch (state)
         {
             case AiState.pirateState.idle:
-                {   if (blocked) return AiState.pirateState.blocked;
+                {   
+                    if (blocked) return AiState.pirateState.blocked;
                     if (canThrowing) return AiState.pirateState.throwing;
                     if (canAttack) return AiState.pirateState.attack;
                     if (canChasing) return AiState.pirateState.chasing;
-                    return AiState.pirateState.wandering;
+                    if (typePirate != AiState.pirate.verySober) return AiState.pirateState.wandering;
+                    return AiState.pirateState.idle;
+                       
                 }
             case AiState.pirateState.wandering:
                 {
@@ -248,7 +258,39 @@ public class AI : MonoBehaviour
         if (other.gameObject.tag == "Hook" && !died && !blocked) {
             if (typePirate.Equals(AiState.pirate.verySober)) {
                 canThrowing = true;
-            }
+                if (transform.position.x > 0){
+                    //positiva
+                    if ((transform.position.x < other.transform.position.x)){
+                        //Hook è a destra
+                        Debug.Log("Hook è a destra x positiva");
+                        dirBomb = Vector2.right;
+                        angle = UnityEngine.Random.Range(90, 180);
+                    }
+                    else {
+                        //Hook è a sinistra
+                        Debug.Log("Hook è a Sinistra x positiva");
+                        dirBomb = Vector2.left;
+                        angle = UnityEngine.Random.Range(270, 360);
+                    }
+                }
+                else {
+                    //negativa
+                    if ((transform.position.x > other.transform.position.x)){
+                        //Hook è a destra
+                        Debug.Log("Hook è a Sinistra");
+                        dirBomb = Vector2.left;
+                        angle = UnityEngine.Random.Range(270, 360);
+                    }
+                    else
+                    {   //hook è a sinistra
+                        
+                        Debug.Log("Hook è a destra");
+                        dirBomb = Vector2.right;
+                        angle = UnityEngine.Random.Range(90, 180);
+                    }
+                }
+
+                }
             else {
                 Vector2 direction = (transform.localScale.x >= 0 ?Vector2.right : Vector2.left);
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);

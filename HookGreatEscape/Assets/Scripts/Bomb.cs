@@ -8,7 +8,9 @@ public class Bomb : MonoBehaviour {
     private int velocity;
     private bool blocked;
     public float angle;
+    public Vector2 direction; //Destra o sinistra
     public GameObject sprite;
+    public Vector2 piratePosition;
     #endregion
 
     // Use this for initialization
@@ -18,6 +20,7 @@ public class Bomb : MonoBehaviour {
         second = asp = 1;
         changeSprite(timePassed);
         throwBomb();
+        transform.position = piratePosition;
     }
 	
 	// Update is called once per frame
@@ -47,7 +50,7 @@ public class Bomb : MonoBehaviour {
 
 
     public void throwBomb() {
-        Vector2 rot = new Vector2(Vector2.right.x * angle - Vector2.right.y * angle, Vector2.right.y * angle + Vector2.right.x * angle);
+        Vector2 rot = new Vector2(direction.x * angle - direction.y * angle, direction.y * angle + direction.x * angle);
         GetComponent<Rigidbody2D>().AddForce(rot, ForceMode2D.Force);
     }
 
