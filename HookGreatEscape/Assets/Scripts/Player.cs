@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     private float max_velocity_y = 5f;
     private bool is_facing_right = true;
     public bool Is_Facing_right { set { is_facing_right = value; } }
+    private bool is_grounded = false;
+    public bool Is_Grounded { get { return is_grounded; } }
 
     /* this is the gravity */
     [Range(0,10)]
@@ -90,7 +92,35 @@ public class Player : MonoBehaviour
         }
 
 	}
-	
+
+    /* Used for know if we can jump again */
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.transform.gameObject.tag == "Floor")
+        {
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (contact.normal.y > 0.1f)
+                {
+                    is_grounded = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision) {
+        if (collision.transform.gameObject.tag == "Floor")
+            is_grounded = true;
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.gameObject.tag == "Floor")
+            is_grounded = false;
+    }
+
+
+
 
     #endregion
 

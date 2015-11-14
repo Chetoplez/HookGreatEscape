@@ -35,6 +35,7 @@ public class HandlePlayerInput : MonoBehaviour {
 	void Update () {
         if (player != null)
         {
+         
 
             if (pause_menu != null)
             { 
@@ -68,7 +69,7 @@ public class HandlePlayerInput : MonoBehaviour {
 
         if (pause) return;
         Player p = player.GetComponent<Player>();
-        
+
         if (left_input())
         {
             p.Is_Facing_right = false;
@@ -79,7 +80,7 @@ public class HandlePlayerInput : MonoBehaviour {
             p.Is_Facing_right = true;
             move_player(false);  
         }
-        if (jump_input())
+        if (jump_input() && p.Is_Grounded)
             jump();
         if (Input.GetAxis("Mouse Y")>0)
             move_target(true);
