@@ -377,7 +377,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11468310}
         m_MethodName: disableMessage
         m_Mode: 1
         m_Arguments:
@@ -436,7 +436,7 @@ MonoBehaviour:
   live_text: {fileID: 11441862}
   message: {fileID: 177062}
   message_button_exit: {fileID: 178934}
-  img_jimmy: {fileID: 0}
+  img_jimmy: {fileID: 103640}
 --- !u!222 &22221810
 CanvasRenderer:
   m_ObjectHideFlags: 1
