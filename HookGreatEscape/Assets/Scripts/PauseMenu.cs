@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour {
     public int level = 1;
     private Canvas my_canvas;
     private HandlePlayerInput hpi = null;
+    private GameController game_controller = null;
 
     void Start() {
         get_player_input();
@@ -21,17 +22,25 @@ public class PauseMenu : MonoBehaviour {
         if (gc != null)
         {
             hpi = gc.GetComponent<HandlePlayerInput>() ?? null;
+            game_controller = gc.GetComponent<GameController>() ?? null;
             if (hpi != null)
                 hpi.Pause_menu = this.gameObject;
         }
     }
 
-	// Update is called once per frame
+	
 	void Update () {
         my_canvas.gameObject.SetActive(pause_activated);
 	}
 
-    public void restart() { Application.LoadLevel(level); pause_activated = false; Time.timeScale = 1; hpi.Alive = true; hpi.Pause = false; }
+    public void restart() { 
+        Application.LoadLevel(level); 
+        pause_activated = false;
+        game_controller.Lives = 5;
+        hpi.Alive = true; 
+        hpi.Pause = false;
+        Time.timeScale = 1; 
+    }
     public void pause() { Time.timeScale = 0; pause_activated = true; hpi.Pause = true; }
     public void resume() { Time.timeScale = 1; pause_activated = false; hpi.Pause = false; }
     public void backtomain() { Application.LoadLevel(0); hpi.Pause = false; hpi.Alive = true;  }

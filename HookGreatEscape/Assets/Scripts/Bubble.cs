@@ -70,8 +70,10 @@ public class Bubble : MonoBehaviour {
             this.transform.Translate(velocity * speed * Time.deltaTime);
         }
         else
-            this.transform.position = shooting_position;
-        
+        {
+            Vector3 desired_position = Vector3.Lerp(this.transform.position,shooting_position,0.5f);
+            this.transform.position = desired_position;
+        }
 	}
 
     /* Became bigger....bigger...bigger... */
@@ -95,7 +97,7 @@ public class Bubble : MonoBehaviour {
             else
             {
                 encapsuled_ai.gameObject.transform.parent = null;
-                encapsuled_ai.Blocked = false;
+               // encapsuled_ai.Blocked = false;
                 change_scale_factor(encapsuled_ai.gameObject,false);
             }
         }
