@@ -8,7 +8,7 @@ public class AI : MonoBehaviour
     #region Variabili
     public AiState.pirate typePirate;
     public float pause;
-    private AiState.pirateState prevState, currentState;
+    private AiState.pirateState prevState, currentState, newState;
     private bool canAttack, canChasing, canThrowing, died,inAir,blocked;
 
     public bool Blocked {
@@ -23,10 +23,10 @@ public class AI : MonoBehaviour
     private int lifePirate;
 
     private BoxCollider2D col;
-    private float minDistanceChaising ;
-    private float maxDistanceChaising ;
-    private float maxDepth = 100; //Dove cercare "Hook"
-    private float minDepth = 1;  //distanza massima per avvicinarsi a un oggetto
+    private float minDistanceChaising = 10;
+    private float maxDistanceChaising = 1;
+    private float maxDepth = 150; //Dove cercare "Hook"
+    private float minDepth = 1f;  //distanza massima per avvicinarsi a un oggetto
     //public GameObject HUD;
     #endregion
 
@@ -38,9 +38,8 @@ public class AI : MonoBehaviour
         canAttack = canChasing = canThrowing = blocked = died = false;
         hook = null;
         col = gameObject.GetComponent<BoxCollider2D>();
-        maxDistanceChaising = col.size.x / 2;
-        minDistanceChaising = maxDistanceChaising/2;
-        Debug.Log("max: " + maxDistanceChaising + "min: " + minDistanceChaising);
+        maxDistanceChaising = col.size.x / 2 + 1;
+        minDistanceChaising = maxDistanceChaising / 2;
         choosePirateLife(typePirate);
     }
 
@@ -50,7 +49,8 @@ public class AI : MonoBehaviour
         pause -= Time.deltaTime;
         if (pause <= 0)
         {
-            changeState(chooseState(currentState));
+            newState = chooseState(currentState);
+            changeState(newState);
             doSomething();
             Debug.Log("Stato: " + currentState);
         }
@@ -71,12 +71,12 @@ public class AI : MonoBehaviour
 
     public void wandering()
     {
-        Vector2 direction = (transform.localScale.x >= 0 ? Vector2.right : Vector2.left);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y), direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
-        Debug.DrawLine(transform.position, direction );
+          Vector2 direction = (transform.localScale.x >= 0 ? Vector2.right : Vector2.left);
+          RaycastHit2D hit = Physics2D.Raycast( new Vector2(transform.position.x,transform.position.y), direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
+          Debug.DrawLine(transform.position, new Vector2(direction.x*15,transform.position.y));
         if (hit.collider != null && Mathf.Abs(hit.distance) > minDepth)
         {
-            transform.position = Vector2.MoveTowards(transform.position, hit.transform.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, hit.transform.position , speed * Time.deltaTime);
         }
         else if (hit.collider != null && Mathf.Abs(hit.distance) < minDepth)
         {
@@ -84,6 +84,7 @@ public class AI : MonoBehaviour
             pause = 1.5f;
         }
         else {
+            Debug.Log("dovrei flippare");
             flip();
             pause = 1.5f;
         }
@@ -250,14 +251,15 @@ public class AI : MonoBehaviour
                 canThrowing = true;
             }
             else {
-                Vector2 direction = (transform.localScale.x >= 0 ? Vector2.right : Vector2.left);
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
-                Debug.DrawLine(transform.position, direction);
-                if (hit.collider == null) return;
+                Debug.Log("Dovrei fare il raycast");
+                Vector2 direction = (transform.localScale.x >= 0 ?Vector2.right : Vector2.left);
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
+                Debug.DrawLine(transform.position, new Vector2(direction.x * 15, transform.position.y));
                 if (hit.collider != null && hit.transform.gameObject.tag == "Hook") {
                     hook = other.gameObject;
                     if (Mathf.Abs(hit.distance) >= minDistanceChaising && Mathf.Abs(hit.distance) < maxDistanceChaising) {
-                       // chasingTarget = new Vector2(transform.position.x + hit.transform.position.x , transform.position.y);
+                        Debug.Log("E dice che è in chasing");
+                        chasingTarget = new Vector2(transform.position.x + hit.transform.position.x + 5, transform.position.y);
                         canChasing = true;
                         canAttack = false;
                     } else if(hit.distance < minDistanceChaising){
