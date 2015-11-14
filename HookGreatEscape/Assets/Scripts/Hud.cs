@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Hud : MonoBehaviour {
     /* Life of the player */
@@ -11,6 +12,7 @@ public class Hud : MonoBehaviour {
 
     public GameObject message;
     public GameObject message_button_exit;
+    public GameObject img_jimmy;
     private bool message_show = false;
     public bool Message_show { get { return message_show; } set { message_show = value; } }
 
@@ -18,9 +20,6 @@ public class Hud : MonoBehaviour {
         if (live_text == null)
             Debug.LogError("HUD: not linked the live_number_text object");
         get_initial_life();
-
-       
-
     }
 
     void Update() {
@@ -32,6 +31,8 @@ public class Hud : MonoBehaviour {
             message.SetActive(message_show);
         if (message_button_exit)
             message_button_exit.SetActive(message_show);
+        if (img_jimmy)
+            img_jimmy.SetActive(message_show);
     }
 
 
@@ -44,4 +45,21 @@ public class Hud : MonoBehaviour {
     }
 
     bool is_valid() { return live_text != null; }
+
+    public void showMessage(string text)
+    {
+        message.GetComponent<Text>().text = text;
+        message_show = true;
+    }
+
+    public void disableMessage()
+    {
+        message_show = false;
+        Time.timeScale = 1;
+        HandlePlayerInput hpi =gc.GetComponent<HandlePlayerInput>() ?? null;
+        if (hpi != null)
+        {
+            hpi.Pause = false;
+        }
+    }
 }

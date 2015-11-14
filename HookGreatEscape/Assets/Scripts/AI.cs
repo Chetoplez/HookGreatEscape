@@ -95,8 +95,8 @@ public class AI : MonoBehaviour
     }
 
     public void confuse() {
-        lifePirate -= 1;
-        if (lifePirate == 0) {
+        lifePirate --;
+        if (lifePirate <= 0) {
             died = true;
         }
     }
