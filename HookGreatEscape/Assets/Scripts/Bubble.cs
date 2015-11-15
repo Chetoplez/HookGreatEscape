@@ -50,13 +50,14 @@ public class Bubble : MonoBehaviour {
     private GameObject bomb = null;
     private bool bomb_encapsuled = false;
 
-    public AudioSource sound = null;
 
+    public AudioSource popsound = null;
 
     void Start() { 
         circle=GetComponent<CircleCollider2D>();
         this.shooting_position = this.transform.position;
         old_life = bubble_life;
+        popsound= GetComponent<AudioSource>();
     }
 	
 	void Update () {
@@ -90,6 +91,7 @@ public class Bubble : MonoBehaviour {
 
     /* ....and POP! */
     public void die() {
+        
         if (encapsuled)
         {
             if (bomb_encapsuled)
@@ -100,12 +102,14 @@ public class Bubble : MonoBehaviour {
             else
             {
                 encapsuled_ai.gameObject.transform.parent = null;
-               // encapsuled_ai.Blocked = false;
                 change_scale_factor(encapsuled_ai.gameObject,false);
             }
         }
+        AudioHandler.Instance.PlayAudio(popsound);
         DestroyObject(this.gameObject);
     }
+
+  
 
    
     void OnTriggerStay2D(Collider2D other) {

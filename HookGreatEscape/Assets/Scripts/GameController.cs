@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 
     private string hud_handler_name = "HudHandler";
     private GameObject hud_handler;
+    private AudioHandler audio_handler;
 
     void Awake()
     {
