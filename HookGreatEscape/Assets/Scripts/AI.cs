@@ -120,10 +120,20 @@ public class AI : MonoBehaviour
 
     public void throwBomb()
     {//Per istanziare il prefabs Bomb
+        if (!((dirBomb.x > 0 && transform.position.x > 0) || (dirBomb.x < 0 && transform.position.x < 0)))
+        {
+            flip();
+        }
+        animator.SetInteger("State", 1);
         GameObject prefab =(GameObject) Instantiate(Resources.Load<GameObject>("Bomb"));
         Bomb b = prefab.GetComponent<Bomb>();
         b.direction = dirBomb;
         b.piratePosition= transform.position ;
+  
+    }
+
+    public void changeAnimation() {
+        animator.SetInteger("State", 0);
     }
 
     public void attack()
@@ -191,6 +201,7 @@ public class AI : MonoBehaviour
                 }
             case AiState.pirateState.throwing:
                 {
+
                     throwBomb();
                     pause = 8;
                     break;
@@ -295,7 +306,7 @@ public class AI : MonoBehaviour
                     }
                  }else
                 {
-                    canChasing = canAttack = false;
+                    canChasing = canAttack = canThrowing = false;
                 }
             }
         }
