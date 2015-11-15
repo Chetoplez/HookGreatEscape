@@ -32,6 +32,7 @@ GameObject:
   - 114: {fileID: 11491776}
   - 114: {fileID: 11499950}
   - 50: {fileID: 5002150}
+  - 95: {fileID: 9593468}
   m_Layer: 8
   m_Name: Player
   m_TagString: Hook
@@ -77,7 +78,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .217999995, y: .0130000003, z: 0}
+  m_LocalPosition: {x: .317999989, y: .114, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 484656}
@@ -101,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173196}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .69599998, y: 0, z: 0}
+  m_LocalPosition: {x: .69599998, y: .103, z: 0}
   m_LocalScale: {x: .550000012, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 484656}
@@ -198,6 +199,23 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112830}
   m_Enabled: 1
+--- !u!95 &9593468
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165364}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2b8bb72071fc2454b82e43ac8aece20a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11491776
 MonoBehaviour:
   m_ObjectHideFlags: 1
