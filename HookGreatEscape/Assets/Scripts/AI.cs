@@ -7,7 +7,7 @@ public class AI : MonoBehaviour
 
     #region Variabili
     public AiState.pirate typePirate;
-    public float pause;
+    private float pause;
     private AiState.pirateState prevState, currentState, newState;
     private bool canAttack, canChasing, canThrowing, died,inAir,blocked;
 
@@ -22,14 +22,14 @@ public class AI : MonoBehaviour
     private GameObject hook;
     private int lifePirate;
 
-    private int angle;
+    private Animator animator = null;
+
     private Vector2 dirBomb;
     private BoxCollider2D col;
     private float minDistanceChaising = 10;
     private float maxDistanceChaising = 1;
-    private float maxDepth = 150; //Dove cercare "Hook"
+    private float maxDepth = 15; //Dove cercare "Hook"
     private float minDepth = 1f;  //distanza massima per avvicinarsi a un oggetto
-    //public GameObject HUD;
     #endregion
 
 
@@ -43,6 +43,7 @@ public class AI : MonoBehaviour
         maxDistanceChaising = col.size.x / 2 + 1;
         minDistanceChaising = maxDistanceChaising / 2;
         choosePirateLife(typePirate);
+        animator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -78,14 +79,17 @@ public class AI : MonoBehaviour
           Debug.DrawLine(transform.position, new Vector2(direction.x*15,transform.position.y));
         if (hit.collider != null && Mathf.Abs(hit.distance) > minDepth)
         {
+            animator.SetInteger("State", 1);
             transform.position = Vector2.MoveTowards(transform.position, hit.transform.position , speed * Time.deltaTime);
         }
         else if (hit.collider != null && Mathf.Abs(hit.distance) < minDepth)
         {
+            animator.SetInteger("State",0);
             flip();
             pause = 1.5f;
         }
         else {
+            animator.SetInteger("State", 0);
             flip();
             pause = 2;
         }
@@ -94,7 +98,7 @@ public class AI : MonoBehaviour
     public void chasing()
     {
       transform.position = Vector2.MoveTowards(transform.position,chasingTarget, speed * Time.deltaTime);
-        //Cambio Sprite
+      animator.SetInteger("State", 1);
     }
 
     public void die() {
@@ -119,11 +123,13 @@ public class AI : MonoBehaviour
         GameObject prefab =(GameObject) Instantiate(Resources.Load<GameObject>("Bomb"));
         Bomb b = prefab.GetComponent<Bomb>();
         b.direction = dirBomb;
-        b.piratePosition= new Vector2(transform.position.x, transform.position.y) ;
+        b.piratePosition= transform.position ;
     }
 
     public void attack()
     {
+
+        animator.SetInteger("State", 2);
         if (hook != null) {
             Player p = hook.GetComponent<Player>() ?? null;
             if (p != null)
@@ -153,7 +159,9 @@ public class AI : MonoBehaviour
     {
         switch (currentState)
         {
-            case AiState.pirateState.idle: break;
+            case AiState.pirateState.idle:
+                animator.SetInteger("State", 0);
+                break;
             case AiState.pirateState.wandering:
                 {
                     if(typePirate!=AiState.pirate.verySober)
