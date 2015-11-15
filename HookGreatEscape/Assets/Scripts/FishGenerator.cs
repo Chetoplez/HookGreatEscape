@@ -3,6 +3,12 @@ using System.Collections;
 
 public class FishGenerator : MonoBehaviour {
 
+
+    public enum FishType { 
+        BLUE,
+        RED
+    }
+
     /* Every delta_fish second, a fish will be instantiated */
     [Range(1, 10)]
     public int delta_fish = 2;
@@ -10,6 +16,8 @@ public class FishGenerator : MonoBehaviour {
     public bool no_limits = true;
     [Range(1,100)]
     public int max_fish_number = 100;
+    public FishType fish_type = FishType.BLUE;
+    
 
     private int fish_generated = 0;
 
@@ -41,7 +49,7 @@ public class FishGenerator : MonoBehaviour {
 	}
 
     void create_fish() {
-        Instantiate(Resources.Load("Fish"), this.transform.position, this.transform.rotation);
+        Instantiate(Resources.Load((fish_type==FishType.BLUE)?"Fish":"RedFish"), this.transform.position, this.transform.rotation);
         fish_generated++;
     }
 
