@@ -52,6 +52,7 @@ public class Bubble : MonoBehaviour {
 
 
     public AudioSource popsound = null;
+    private bool can_die=false;
 
     void Start() { 
         circle=GetComponent<CircleCollider2D>();
