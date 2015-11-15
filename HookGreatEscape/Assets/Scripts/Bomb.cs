@@ -15,7 +15,7 @@ public class Bomb : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        angle = Random.Range(90, 180);
+       // angle = Random.Range(90, 180);
         timeToExplode = timePassed =  Random.Range(3, 10);
         second = asp = 1;
         changeSprite(timePassed);

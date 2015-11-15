@@ -270,7 +270,7 @@ public class AI : MonoBehaviour
                         //Hook è a sinistra
                         Debug.Log("Hook è a Sinistra x positiva");
                         dirBomb = Vector2.left;
-                        angle = UnityEngine.Random.Range(270, 360);
+                        angle = UnityEngine.Random.Range(0, 90);
                     }
                 }
                 else {
@@ -279,7 +279,7 @@ public class AI : MonoBehaviour
                         //Hook è a destra
                         Debug.Log("Hook è a Sinistra");
                         dirBomb = Vector2.left;
-                        angle = UnityEngine.Random.Range(270, 360);
+                        angle = UnityEngine.Random.Range(0, 90);
                     }
                     else
                     {   //hook è a sinistra
