@@ -65,7 +65,10 @@ public class Player : MonoBehaviour
     private GameObject bubble = null;
     private Animator animator = null;
     public AudioSource gun = null;
-    
+
+    private bool is_moving = false;
+    public bool Is_Moving { get { return is_moving; } set { is_moving = false; } }
+
     #endregion
 
     #region StateMachine
@@ -147,6 +150,11 @@ public class Player : MonoBehaviour
             if ((is_facing_right && left) || (!left && !is_facing_right))
                 flip();
             rigidbody.AddForce(new Vector2((this.forward) ? this.speed_factor : -speed_factor, 0f));
+            if (!is_moving)
+            {
+                animator.SetBool("Walking", true);
+                is_moving = true;
+            }
         }
         else
             rigidbody.AddForce(new Vector2(0f, jump_speed * 10));
