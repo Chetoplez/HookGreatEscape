@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-[RequireComponent(typeof(Animator)),RequireComponent(typeof(Collider2D)),RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(HandlePlayerStatus)),RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(AudioSource)),RequireComponent(typeof(Animator)),RequireComponent(typeof(Collider2D)),RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(HandlePlayerStatus)),RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
 
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     /* This is the bubble that will be created  */
     private GameObject bubble = null;
     private Animator animator = null;
-
+    public AudioSource gun = null;
     
     #endregion
 
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         _vertical_distance_between_rays = collider_heigth / (total_horizontal_rays - 1);
 
         animator=GetComponent<Animator>();
-
+        gun=GetComponent<AudioSource>();
 
         GameObject game_controller = GameObject.Find("GameController") ?? null;
         if (game_controller != null)
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
         Bubble bb = bubble.GetComponent<Bubble>();
         bb.Velocity = target.transform.position - bubble.transform.position;
         bb.Shooted = true;
-       
+        AudioHandler.Instance.PlayAudio(gun);
     }
 
     
