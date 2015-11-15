@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(CircleCollider2D)),RequireComponent(typeof(AudioSource))]
 public class Bubble : MonoBehaviour {
 
     /* Velocity vector */
@@ -49,6 +49,9 @@ public class Bubble : MonoBehaviour {
     private float gravityscale_ai = 0f;
     private GameObject bomb = null;
     private bool bomb_encapsuled = false;
+
+    public AudioSource sound = null;
+
 
     void Start() { 
         circle=GetComponent<CircleCollider2D>();

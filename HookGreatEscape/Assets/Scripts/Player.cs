@@ -65,12 +65,14 @@ public class Player : MonoBehaviour
     private GameObject bubble = null;
     private Animator animator = null;
 
+    
     #endregion
 
     #region StateMachine
 
     void Start () 
     {
+        
 	    player_status= GetComponent<HandlePlayerStatus>();
         collider= GetComponent<Collider2D>();
         if (target == null || pistol == null)
