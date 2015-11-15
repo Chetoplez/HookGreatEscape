@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-[RequireComponent(typeof(Collider2D)),RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(HandlePlayerStatus)),RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator)),RequireComponent(typeof(Collider2D)),RequireComponent(typeof(Rigidbody2D)),RequireComponent(typeof(HandlePlayerStatus)),RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
 
@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     private float _vertical_distance_between_rays;
     private float _horizontal_distance_between_rays;
     public LayerMask platform_mask;
+    private bool shooting = false;
 
     /* This is the target that help with the shoot direction */
     public GameObject target = null;
@@ -62,6 +63,7 @@ public class Player : MonoBehaviour
     public GameObject pistol = null;
     /* This is the bubble that will be created  */
     private GameObject bubble = null;
+    private Animator animator = null;
 
     #endregion
 
@@ -83,6 +85,9 @@ public class Player : MonoBehaviour
 
         var collider_heigth = box_collider.size.y * Mathf.Abs(transform.localScale.y) - (2 * skin_width);
         _vertical_distance_between_rays = collider_heigth / (total_horizontal_rays - 1);
+
+        animator=GetComponent<Animator>();
+
 
         GameObject game_controller = GameObject.Find("GameController") ?? null;
         if (game_controller != null)
@@ -126,7 +131,10 @@ public class Player : MonoBehaviour
 
     #region Methods
 
- 
+    public void stop_shooting_anim() {
+        this.animator.SetBool("Shooting",false);
+    }
+
 
     /* Move by a fixed quantity */
     public void move(bool horizontal=true,bool left=false){
@@ -172,9 +180,11 @@ public class Player : MonoBehaviour
     /* Shoot a bubble! */
     public void shoot() {
         if (bubble == null) return;
+        animator.SetBool("Shooting", true);
         Bubble bb = bubble.GetComponent<Bubble>();
         bb.Velocity = target.transform.position - bubble.transform.position;
         bb.Shooted = true;
+       
     }
 
     

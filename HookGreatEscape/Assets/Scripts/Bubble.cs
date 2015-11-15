@@ -130,7 +130,7 @@ public class Bubble : MonoBehaviour {
             else
             {
                 bomb_encapsuled = true;
-                bomb = other.gameObject;
+                bomb = parent(other.gameObject);
                 bomb.transform.parent = this.transform;
                 change_scale_factor(bomb,true);
             }
