@@ -11,16 +11,17 @@ public class Bomb : MonoBehaviour {
     public Vector2 direction; //Destra o sinistra
     public GameObject sprite;
     public Vector2 piratePosition;
+    private bool die;
     #endregion
 
     // Use this for initialization
     void Start () {
-        angle = Random.Range(45, 135);
         timeToExplode = timePassed =  Random.Range(3, 10);
         second = asp = 1;
         changeSprite(timePassed);
         throwBomb();
         transform.position = piratePosition;
+        die = false;
     }
 	
 	// Update is called once per frame
@@ -49,13 +50,7 @@ public class Bomb : MonoBehaviour {
 
 
     public void throwBomb() {
-       //Vector2 rot = new Vector2(direction.x * angle - direction.y * angle, direction.y * angle + direction.x * angle);
-       //this.GetComponent<Rigidbody2D>().AddForce(rot, ForceMode2D.Force);
-        this.GetComponent<Rigidbody2D>().AddForce(direction, ForceMode2D.Impulse);
-        Debug.Log("Direction is:" + direction);
-        Debug.Log("transform bomb is: " + transform.position);
-        
-       // Debug.Break();
+        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(direction.x*0.5f, direction.y), ForceMode2D.Impulse);
     }
 
     public void changeSprite(float time) {
@@ -68,19 +63,35 @@ public class Bomb : MonoBehaviour {
             sprite_render.sprite = newSprite;
     }
 
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "Hook" || other.gameObject.tag == "Pirate") {
+            die = true;
+        }
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
-        if (timeToExplode <= 0)
+        if (die)
         {
             if (other.gameObject.tag == "Hook")
             {
                 Player p = other.gameObject.GetComponent<Player>() ?? null;
                 if (p != null) p.hit();
+                die = false;
             }
             else if(other.gameObject.tag == "Pirate"){
                 AI p = other.gameObject.GetComponent<AI>() ?? null;
                 if (p != null) p.Blocked = true;
+                die = false;
             }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Hook" || other.gameObject.tag == "Pirate")
+        {
+            die = false;
         }
     }
 

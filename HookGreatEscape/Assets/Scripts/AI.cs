@@ -268,39 +268,6 @@ public class AI : MonoBehaviour
         if (other.gameObject.tag == "Hook" && !died && !blocked) {
             if (typePirate.Equals(AiState.pirate.verySober)) {
                 canThrowing = true;
-                #region hook
-                //if (transform.position.x > 0){
-                //    //positiva
-                //    if ((transform.position.x < other.transform.position.x)){
-                //        //Hook è a destra
-                //        Debug.Log("Hook è a destra x positiva");
-                //        dirBomb = Vector2.right;
-                //        angle = UnityEngine.Random.Range(90, 180);
-                //    }
-                //    else {
-                //        //Hook è a sinistra
-                //        Debug.Log("Hook è a Sinistra x positiva");
-                //        dirBomb = Vector2.left;
-                //        angle = UnityEngine.Random.Range(0, 90);
-                //    }
-                //}
-                //else {
-                //    //negativa
-                //    if ((transform.position.x > other.transform.position.x)){
-                //        //Hook è a destra
-                //        Debug.Log("Hook è a Sinistra");
-                //        dirBomb = Vector2.left;
-                //        angle = UnityEngine.Random.Range(0, 90);
-                //    }
-                //    else
-                //    {   //hook è a sinistra
-
-                //        Debug.Log("Hook è a destra");
-                //        dirBomb = Vector2.right;
-                //        angle = UnityEngine.Random.Range(90, 180);
-                //    }
-                //}
-                #endregion
                 dirBomb = other.transform.position - transform.position;
                 dirBomb.y = Mathf.Abs(dirBomb.y);
             }

@@ -8,6 +8,7 @@ TagManager:
   - Pirate
   - Floor
   - Bomb
+  - PirateVerySober
   layers:
   - Default
   - TransparentFX

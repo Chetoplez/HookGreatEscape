@@ -1,17 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &108048
+--- !u!1 &154940
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 412300}
-  - 61: {fileID: 6167652}
-  - 61: {fileID: 6159306}
-  m_Layer: 9
-  m_Name: Pirate_Trigger
+  - 4: {fileID: 499032}
+  - 65: {fileID: 6539594}
+  m_Layer: 0
+  m_Name: PirateDie
   m_TagString: Pirate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,23 +30,11 @@ GameObject:
   - 50: {fileID: 5042998}
   m_Layer: 9
   m_Name: VerySober
-  m_TagString: Pirate
+  m_TagString: PirateVerySober
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &412300
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 108048}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 490890}
-  m_RootOrder: 0
 --- !u!4 &490890
 Transform:
   m_ObjectHideFlags: 1
@@ -55,11 +42,23 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.3489609, y: -4.553689, z: 0}
+  m_LocalPosition: {x: -9.94777584, y: -2.7116642, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
-  - {fileID: 412300}
+  - {fileID: 499032}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &499032
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154940}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 490890}
   m_RootOrder: 0
 --- !u!50 &5042998
 Rigidbody2D:
@@ -76,7 +75,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!61 &6114330
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -87,35 +86,21 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .189999998}
+  m_Offset: {x: 0, y: -.610000014}
   serializedVersion: 2
-  m_Size: {x: 1.97000003, y: .850000024}
---- !u!61 &6159306
-BoxCollider2D:
+  m_Size: {x: 2.26999998, y: 1.76999998}
+--- !u!65 &6539594
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 108048}
-  m_Enabled: 1
+  m_GameObject: {fileID: 154940}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: .270000011, y: .49000001}
---- !u!61 &6167652
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 108048}
   m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .270000011, y: .49000001}
+  m_Size: {x: 1.97000003, y: 1.79999995, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11432938
 MonoBehaviour:
   m_ObjectHideFlags: 1
