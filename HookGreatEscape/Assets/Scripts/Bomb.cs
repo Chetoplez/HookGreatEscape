@@ -15,7 +15,7 @@ public class Bomb : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-       // angle = Random.Range(90, 180);
+        angle = Random.Range(45, 135);
         timeToExplode = timePassed =  Random.Range(3, 10);
         second = asp = 1;
         changeSprite(timePassed);
@@ -34,7 +34,6 @@ public class Bomb : MonoBehaviour {
         }
         timeToExplode -= Time.deltaTime;
         if (timeToExplode <= 0) {
-          
             Explode();
         }
 
@@ -50,19 +49,39 @@ public class Bomb : MonoBehaviour {
 
 
     public void throwBomb() {
-        Vector2 rot = new Vector2(direction.x * angle - direction.y * angle, direction.y * angle + direction.x * angle);
-        GetComponent<Rigidbody2D>().AddForce(rot, ForceMode2D.Force);
+       //Vector2 rot = new Vector2(direction.x * angle - direction.y * angle, direction.y * angle + direction.x * angle);
+       //this.GetComponent<Rigidbody2D>().AddForce(rot, ForceMode2D.Force);
+        this.GetComponent<Rigidbody2D>().AddForce(direction, ForceMode2D.Impulse);
+        Debug.Log("Direction is:" + direction);
+        Debug.Log("transform bomb is: " + transform.position);
+        
+       // Debug.Break();
     }
 
     public void changeSprite(float time) {
         SpriteRenderer sprite_render = sprite.GetComponent<SpriteRenderer>();
         if (sprite_render == null) Debug.LogError("Sprite render is null");
-        Debug.Log("time is: " + time.ToString());
         Sprite newSprite = Resources.Load<Sprite>(time.ToString());
         if (newSprite == null)
             Debug.LogError("Error on loading the sprite.");
         else
             sprite_render.sprite = newSprite;
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (timeToExplode <= 0)
+        {
+            if (other.gameObject.tag == "Hook")
+            {
+                Player p = other.gameObject.GetComponent<Player>() ?? null;
+                if (p != null) p.hit();
+            }
+            else if(other.gameObject.tag == "Pirate"){
+                AI p = other.gameObject.GetComponent<AI>() ?? null;
+                if (p != null) p.Blocked = true;
+            }
+        }
     }
 
 }

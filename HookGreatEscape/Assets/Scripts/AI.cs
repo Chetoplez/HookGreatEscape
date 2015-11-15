@@ -102,7 +102,7 @@ public class AI : MonoBehaviour
     }
 
     public void confuse() {
-        lifePirate --;
+        lifePir();
         if (lifePirate <= 0)
         {
             died = true;
@@ -110,12 +110,16 @@ public class AI : MonoBehaviour
         else blocked = false;
     }
 
+    public void lifePir() {
+        lifePirate--;
+    }
+
     public void throwBomb()
     {//Per istanziare il prefabs Bomb
         GameObject prefab =(GameObject) Instantiate(Resources.Load<GameObject>("Bomb"));
-        prefab.GetComponent<Bomb>().direction = dirBomb;
-        prefab.GetComponent<Bomb>().piratePosition = transform.position;
-        prefab.GetComponent<Bomb>().angle = angle;
+        Bomb b = prefab.GetComponent<Bomb>();
+        b.direction = dirBomb;
+        b.piratePosition= new Vector2(transform.position.x, transform.position.y) ;
     }
 
     public void attack()
@@ -171,7 +175,10 @@ public class AI : MonoBehaviour
                 }
             case AiState.pirateState.blocked:
                 {
-                    pause = 1.5f;
+                    if (typePirate.Equals(AiState.pirate.verySober)) {
+                        pause = 0.5f;
+                    }
+                    else  pause = 1.5f;
                     break;
                 }
             case AiState.pirateState.throwing:
@@ -258,39 +265,42 @@ public class AI : MonoBehaviour
         if (other.gameObject.tag == "Hook" && !died && !blocked) {
             if (typePirate.Equals(AiState.pirate.verySober)) {
                 canThrowing = true;
-                if (transform.position.x > 0){
-                    //positiva
-                    if ((transform.position.x < other.transform.position.x)){
-                        //Hook è a destra
-                        Debug.Log("Hook è a destra x positiva");
-                        dirBomb = Vector2.right;
-                        angle = UnityEngine.Random.Range(90, 180);
-                    }
-                    else {
-                        //Hook è a sinistra
-                        Debug.Log("Hook è a Sinistra x positiva");
-                        dirBomb = Vector2.left;
-                        angle = UnityEngine.Random.Range(0, 90);
-                    }
-                }
-                else {
-                    //negativa
-                    if ((transform.position.x > other.transform.position.x)){
-                        //Hook è a destra
-                        Debug.Log("Hook è a Sinistra");
-                        dirBomb = Vector2.left;
-                        angle = UnityEngine.Random.Range(0, 90);
-                    }
-                    else
-                    {   //hook è a sinistra
-                        
-                        Debug.Log("Hook è a destra");
-                        dirBomb = Vector2.right;
-                        angle = UnityEngine.Random.Range(90, 180);
-                    }
-                }
+                #region hook
+                //if (transform.position.x > 0){
+                //    //positiva
+                //    if ((transform.position.x < other.transform.position.x)){
+                //        //Hook è a destra
+                //        Debug.Log("Hook è a destra x positiva");
+                //        dirBomb = Vector2.right;
+                //        angle = UnityEngine.Random.Range(90, 180);
+                //    }
+                //    else {
+                //        //Hook è a sinistra
+                //        Debug.Log("Hook è a Sinistra x positiva");
+                //        dirBomb = Vector2.left;
+                //        angle = UnityEngine.Random.Range(0, 90);
+                //    }
+                //}
+                //else {
+                //    //negativa
+                //    if ((transform.position.x > other.transform.position.x)){
+                //        //Hook è a destra
+                //        Debug.Log("Hook è a Sinistra");
+                //        dirBomb = Vector2.left;
+                //        angle = UnityEngine.Random.Range(0, 90);
+                //    }
+                //    else
+                //    {   //hook è a sinistra
 
-                }
+                //        Debug.Log("Hook è a destra");
+                //        dirBomb = Vector2.right;
+                //        angle = UnityEngine.Random.Range(90, 180);
+                //    }
+                //}
+                #endregion
+                dirBomb = other.transform.position - transform.position;
+                dirBomb.y = Mathf.Abs(dirBomb.y);
+            }
             else {
                 Vector2 direction = (transform.localScale.x >= 0 ?Vector2.right : Vector2.left);
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), direction, Mathf.Infinity, layerMask, -Mathf.Infinity, maxDepth);
