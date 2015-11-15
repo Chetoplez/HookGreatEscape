@@ -4,6 +4,8 @@ using System.Collections;
 public class WinArea : MonoBehaviour {
 
     private bool win, canWin;
+    [Range(1,3)]
+    public int level;
 
     void Start() {
         win = canWin =  false;
@@ -27,7 +29,7 @@ public class WinArea : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag == "Hook" && win) {
-            GameController.change_level();
+            GameController.change_level(level);
         }
     }
 
