@@ -16,6 +16,13 @@ public class Hud : MonoBehaviour {
     private bool message_show = false;
     public bool Message_show { get { return message_show; } set { message_show = value; } }
 
+    public GameObject live_1;
+    public GameObject live_2;
+    public GameObject live_3;
+    public GameObject live_4;
+    public GameObject live_5;
+
+
     void Start() {
         if (live_text == null)
             Debug.LogError("HUD: not linked the live_number_text object");
@@ -26,7 +33,15 @@ public class Hud : MonoBehaviour {
         if (!is_valid()) return;
         if(gc!=null)
          this.lives = gc.Lives;
-        live_text.text = lives.ToString();
+
+        if (live_1 != null && live_2 != null && live_3 != null && live_4 != null && live_5 != null)
+        {
+            live_1.SetActive(lives>=1);
+            live_2.SetActive(lives>=2);
+            live_3.SetActive(lives>=3);
+            live_4.SetActive(lives>=4);
+            live_5.SetActive(lives>=5);
+        }
         if (message != null)
             message.SetActive(message_show);
         if (message_button_exit)

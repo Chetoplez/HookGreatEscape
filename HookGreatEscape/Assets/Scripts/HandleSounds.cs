@@ -2,8 +2,7 @@
 
 public class AudioHandler : MonoBehaviour
 {
-   
-    public int number;
+
     private static AudioHandler instance;
     private AudioSource ac;
 
@@ -15,7 +14,6 @@ public class AudioHandler : MonoBehaviour
     public void PlayAudio(AudioSource src)
     {
         ac = src;
-        Debug.Log("AudioSource" + ac.name);
         ac.Play();
     }
 }
