@@ -11,8 +11,8 @@ public class HandlePlayerInput : MonoBehaviour {
     /* This is the target that helps player to shoot */
     private GameObject target;
 
-    private const float maximum_y_target= 0.3f;
-    private const float minimum_y_target= -0.2f;
+    private const float maximum_y_target= 0.4f;
+    private const float minimum_y_target= -0.4f;
 
     /* If holding a bubble this is true */
     private bool bubble_holding=false;
