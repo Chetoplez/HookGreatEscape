@@ -255,7 +255,10 @@ public class AI : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
+    void OnCollisionStay2D(Collision2D other) {
+        if (other.gameObject.tag == "Pirate") {
+            flip();
+        }
     }
 
   
