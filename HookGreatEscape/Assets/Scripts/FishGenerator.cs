@@ -22,6 +22,8 @@ public class FishGenerator : MonoBehaviour {
     private int fish_generated = 0;
 
     private float fish_counter;
+    /* Used for calculate the range between the creation of the fish */
+    private int random_range = 5;
 
     void Start() {
         fish_counter = delta_fish;
@@ -42,7 +44,9 @@ public class FishGenerator : MonoBehaviour {
 
         if (fish_counter <= 0)
         {
-            fish_counter = delta_fish;
+            System.Random rand = new System.Random();
+            int val =(int) ( rand.Next(1,random_range) );
+            fish_counter = delta_fish + val;
             create_fish();
         }
 
