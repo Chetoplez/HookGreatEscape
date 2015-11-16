@@ -84,8 +84,6 @@ public class Bomb : MonoBehaviour {
     {
         if (die)
         {
-
-            Debug.Log("Sono esplosa ora possono morire");
             if (other.gameObject.tag == "Hook")
             {
                 Player p = other.gameObject.GetComponent<Player>() ?? null;
@@ -98,7 +96,6 @@ public class Bomb : MonoBehaviour {
                 die = false;
             }
         }
-        else Debug.Log("La bomba non è esplosa sono salva");
     }
     
 }
