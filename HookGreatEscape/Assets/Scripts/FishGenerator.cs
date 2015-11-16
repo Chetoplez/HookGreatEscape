@@ -6,7 +6,8 @@ public class FishGenerator : MonoBehaviour {
 
     public enum FishType { 
         BLUE,
-        RED
+        RED,
+        NOT_FISH
     }
 
     /* Every delta_fish second, a fish will be instantiated */
@@ -53,8 +54,12 @@ public class FishGenerator : MonoBehaviour {
 	}
 
     void create_fish() {
-        Instantiate(Resources.Load((fish_type==FishType.BLUE)?"Fish":"RedFish"), this.transform.position, this.transform.rotation);
+        if(fish_type==FishType.RED || fish_type==FishType.BLUE)
+            Instantiate(Resources.Load((fish_type==FishType.BLUE)?"Fish":"RedFish"), this.transform.position, this.transform.rotation);
+        if(fish_type==FishType.NOT_FISH)
+            Instantiate(Resources.Load("Seagull"), this.transform.position, this.transform.rotation);
         fish_generated++;
+    
     }
 
 }
