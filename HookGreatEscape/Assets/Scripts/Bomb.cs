@@ -7,9 +7,9 @@ public class Bomb : MonoBehaviour {
     private float timeToExplode, second, timePassed,asp;
     private int velocity;
     private bool blocked;
-    public float angle;
     public Vector2 direction; //Destra o sinistra
     public GameObject sprite;
+    public GameObject bomb;
     public Vector2 piratePosition;
     private bool die;
     #endregion
@@ -61,6 +61,11 @@ public class Bomb : MonoBehaviour {
             Debug.LogError("Error on loading the sprite.");
         else
             sprite_render.sprite = newSprite;
+
+        if(time == 0)
+        {
+            bomb.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("11");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
