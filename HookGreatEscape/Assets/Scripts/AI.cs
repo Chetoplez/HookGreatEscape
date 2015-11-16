@@ -209,9 +209,13 @@ public class AI : MonoBehaviour
                 }
             case AiState.pirateState.confuse:
                 {
-                    pause = 1f;
                     confuse();
-                    if (died) die();
+                    if (died)
+                    {
+                        die();
+                        pause = 5;
+                    }
+                    pause = 1;
                     break;
                     
                 }
