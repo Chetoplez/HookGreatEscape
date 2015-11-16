@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6130994}
   - 50: {fileID: 5039566}
   - 114: {fileID: 11498278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 430406}
   - 212: {fileID: 21248452}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 496390}
   - 61: {fileID: 6143970}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BombCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 467664}
   - 61: {fileID: 6154264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.31066322, y: 4.40348387, z: 0}
+  m_LocalPosition: {x: -15.5831137, y: -2.22832036, z: 0}
   m_LocalScale: {x: .300000012, y: .300000012, z: 1}
   m_Children:
   - {fileID: 467664}
@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .349999994, y: -.0900000036, z: 0}
+  m_LocalPosition: {x: .349999994, y: -.119999997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 418866}
@@ -172,7 +172,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1.15999997, y: .819999993}
+  m_Size: {x: .800000012, y: .819999993}
 --- !u!114 &11498278
 MonoBehaviour:
   m_ObjectHideFlags: 1
