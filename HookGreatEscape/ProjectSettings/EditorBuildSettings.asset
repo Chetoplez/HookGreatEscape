@@ -9,3 +9,7 @@ EditorBuildSettings:
     path: Assets/Scene/main_menu.unity
   - enabled: 1
     path: Assets/Scene/first_level.unity
+  - enabled: 1
+    path: Assets/Scene/second_level.unity
+  - enabled: 1
+    path: Assets/Scene/third_level.unity
