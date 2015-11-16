@@ -8,13 +8,15 @@ public class MessageArea : MonoBehaviour {
     private bool messageShow,read;
     public string textArea;
     private GameObject gameController;
-    public GameObject HUD;
+    private GameObject HUD;
 
     // Use this for initialization
     void Start () {
         gameController = GameObject.Find("GameController");
+        HUD = GameObject.Find("HUD");
         messageShow = read = false;
-
+        if (gameController == null) Debug.LogError("Game Controller is null");
+        if (HUD == null) Debug.LogError("HUD is null");
 	}
 	
 	// Update is called once per frame
