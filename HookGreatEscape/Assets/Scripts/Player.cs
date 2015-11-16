@@ -103,10 +103,6 @@ public class Player : MonoBehaviour
 
 	}
 
-    void Update() {
-        Debug.Log("is moving=" + is_moving);
-    }
-
 
     /* Used for know if we can jump again */
     void OnCollisionEnter2D(Collision2D collision) {
