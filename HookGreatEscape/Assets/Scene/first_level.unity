@@ -4474,7 +4474,7 @@ Transform:
   - {fileID: 1049108320}
   - {fileID: 632809289}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!1 &1298047177
 GameObject:
   m_ObjectHideFlags: 0
@@ -6706,7 +6706,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22427676, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 22427676, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -6747,22 +6747,6 @@ Prefab:
     - target: {fileID: 22427676, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22471004, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 66.0999985
-      objectReference: {fileID: 0}
-    - target: {fileID: 22471004, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 22471004, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424646, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
-      propertyPath: m_Text
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ef3c1aa9d6edee44faa7b6a9b5bc7dab, type: 2}
