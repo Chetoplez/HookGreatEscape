@@ -127,6 +127,7 @@ public class AI : MonoBehaviour
         animator.SetInteger("State", 1);
         GameObject prefab =(GameObject) Instantiate(Resources.Load<GameObject>("Bomb"));
         Bomb b = prefab.GetComponent<Bomb>();
+        b.trap = false;
         b.direction = dirBomb;
         b.piratePosition= transform.position ;
   
