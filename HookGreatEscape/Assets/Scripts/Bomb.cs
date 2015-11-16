@@ -6,7 +6,7 @@ public class Bomb : MonoBehaviour {
     #region Variable
     private float timeToExplode, second, timePassed,asp = 0;
     private int velocity;
-    private bool blocked;
+    private bool explode;
     public Vector2 direction; //Destra o sinistra
     public GameObject sprite;
     public GameObject bomb;
@@ -20,7 +20,7 @@ public class Bomb : MonoBehaviour {
         timeToExplode = timePassed = Random.Range(3, 10);
         second = asp = 1;
         changeSprite(timePassed);
-        die = false;
+        die = explode = false;
         if (!trap)
         {
             transform.position = piratePosition;
@@ -44,13 +44,14 @@ public class Bomb : MonoBehaviour {
         }
         timeToExplode -= Time.deltaTime;
         if (timeToExplode <= 0) {
+            explode = true;
             Explode();
         }
 
 	}
 
     public void Explode(){
-        die = true;
+        
         asp -= Time.deltaTime;
         if (asp <= 0)
         Destroy(this.gameObject);
@@ -78,11 +79,18 @@ public class Bomb : MonoBehaviour {
         }
     }
 
-
-
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (die)
+        if (other.gameObject.tag == "Hook")
+        {
+            die = true;
+        }
+        }
+
+
+        void OnTriggerStay2D(Collider2D other)
+    {
+        if (die && explode)
         {
             if (other.gameObject.tag == "Hook")
             {
@@ -97,5 +105,13 @@ public class Bomb : MonoBehaviour {
             }
         }
     }
-    
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Hook")
+        {
+            die = false;
+        }
+    }
+
 }
