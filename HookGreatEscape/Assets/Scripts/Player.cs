@@ -103,6 +103,11 @@ public class Player : MonoBehaviour
 
 	}
 
+    void Update() {
+        Debug.Log("is moving=" + is_moving);
+    }
+
+
     /* Used for know if we can jump again */
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.transform.gameObject.tag == "Floor")
@@ -135,6 +140,11 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Methods
+
+    public void stop_walking_anim() {
+        this.animator.SetBool("Walking",false);
+        is_moving = false;
+    }
 
     public void stop_shooting_anim() {
         this.animator.SetBool("Shooting",false);

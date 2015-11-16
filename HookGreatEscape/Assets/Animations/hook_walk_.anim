@@ -71,7 +71,7 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: .25
-    functionName: get_Is_Moving
+    functionName: stop_walking_anim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
