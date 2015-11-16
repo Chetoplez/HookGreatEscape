@@ -256,7 +256,7 @@ public class AI : MonoBehaviour
                     return AiState.pirateState.idle;
                 }
             case AiState.pirateState.blocked:
-                {   // Bisogna capire se è morto o meno
+                {   
                     return AiState.pirateState.confuse;
                 }
             case AiState.pirateState.throwing:
@@ -300,7 +300,8 @@ public class AI : MonoBehaviour
                         chasingTarget = new Vector2( hit.transform.position.x, transform.position.y);
                         canChasing = true;
                         canAttack = false;
-                    } else if(hit.distance < minDistanceChaising){
+                    } else if(hit.distance < minDistanceChaising && typePirate.Equals(AiState.pirate.sober)) // Controllare se funziona, i pirati drunk non dovrebbero attaccare, in caso togliere l'&&
+                    {
                         canChasing = false;
                         canAttack = true;
                     }
