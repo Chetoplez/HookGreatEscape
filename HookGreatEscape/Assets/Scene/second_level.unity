@@ -3720,6 +3720,10 @@ Prefab:
       propertyPath: m_Name
       value: AreaMessage (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 11423704, guid: 2c30ea5a7f9b83d4f9c3a08d89a79dbc, type: 2}
+      propertyPath: textArea
+      value: The crew has hidden some traps here! Stay alert! Arrrrr
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c30ea5a7f9b83d4f9c3a08d89a79dbc, type: 2}
   m_IsPrefabParent: 0
@@ -3816,6 +3820,10 @@ Prefab:
       propertyPath: HUD
       value: 
       objectReference: {fileID: 719254018}
+    - target: {fileID: 11423704, guid: 2c30ea5a7f9b83d4f9c3a08d89a79dbc, type: 2}
+      propertyPath: textArea
+      value: This pirate are sober! Needs two bubble hit to die!
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c30ea5a7f9b83d4f9c3a08d89a79dbc, type: 2}
   m_IsPrefabParent: 0
