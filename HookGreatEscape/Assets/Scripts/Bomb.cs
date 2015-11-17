@@ -103,14 +103,15 @@ public class Bomb : MonoBehaviour {
                 if (col.gameObject.tag == "Hook")
                 {
                     Debug.Log("Sono in hook");
-                    Player p = other.gameObject.GetComponent<Player>() ?? null;
+                    Player p = col.gameObject.GetComponent<Player>() ?? null;
                     if (p != null) p.hit();
+                    else Debug.Log("p è null");
                     die = false;
                 }
                 else if (col.gameObject.tag == "Pirate")
                 {
                     Debug.Log("Sono in Pirate");
-                    AI p = other.gameObject.GetComponent<AI>() ?? null;
+                    AI p = col.gameObject.GetComponent<AI>() ?? null;
                     if (p != null) p.Blocked = true;
                     die = false;
                 }
