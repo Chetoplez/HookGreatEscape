@@ -9,8 +9,11 @@ public class AreaTrap : MonoBehaviour {
     {
         if (other.gameObject.tag == "Hook")
         {
-            if(trap != null)
-            trap.SetActive(true);
+            if (trap != null)
+            {
+                trap.SetActive(true);
+                this.gameObject.SetActive(false);
+            }
         }
     }
 

@@ -13,6 +13,7 @@ public class Bomb : MonoBehaviour {
     public Vector2 piratePosition = Vector2.zero;
     private bool die;
     public bool trap = true;
+    public ArrayList listCollider = new ArrayList(); 
     #endregion
 
     // Use this for initialization
@@ -81,33 +82,46 @@ public class Bomb : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (!listCollider.Contains(other))
+            listCollider.Add(other);
+
         if (other.gameObject.tag == "Hook")
         {
             die = true;
         }
-        }
+     }
 
 
         void OnTriggerStay2D(Collider2D other)
     {
         if (die && explode)
         {
-            if (other.gameObject.tag == "Hook")
+            Debug.Log("Posso morire");
+            foreach (Collider2D col in listCollider)
             {
-                Player p = other.gameObject.GetComponent<Player>() ?? null;
-                if (p != null) p.hit();
-                die = false;
-            }
-            else if(other.gameObject.tag == "Pirate"){
-                AI p = other.gameObject.GetComponent<AI>() ?? null;
-                if (p != null) p.Blocked = true;
-                die = false;
+                Debug.Log("Col.tag is: " + col.gameObject.tag);
+                if (col.gameObject.tag == "Hook")
+                {
+                    Debug.Log("Sono in hook");
+                    Player p = other.gameObject.GetComponent<Player>() ?? null;
+                    if (p != null) p.hit();
+                    die = false;
+                }
+                else if (col.gameObject.tag == "Pirate")
+                {
+                    Debug.Log("Sono in Pirate");
+                    AI p = other.gameObject.GetComponent<AI>() ?? null;
+                    if (p != null) p.Blocked = true;
+                    die = false;
+                }
             }
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if(listCollider.Contains(other))
+        listCollider.Remove(other);
         if (other.gameObject.tag == "Hook")
         {
             die = false;
