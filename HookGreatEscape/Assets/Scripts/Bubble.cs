@@ -97,9 +97,12 @@ public class Bubble : MonoBehaviour {
         {
             if (bomb_encapsuled)
             {
-                bomb.transform.parent = null;
-                change_scale_factor(bomb,false);
-            }
+                if (bomb != null)
+                {
+                    bomb.transform.parent = null;
+                    change_scale_factor(bomb, false);
+                }
+             }
             else
             {
                 encapsuled_ai.gameObject.transform.parent = null;
@@ -116,9 +119,26 @@ public class Bubble : MonoBehaviour {
     void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag != "Pirate" && other.gameObject.tag != "Bomb" && other.gameObject.tag!= "Floor") return;
 
+
         if (other.gameObject.tag == "Floor")
          die();
+
         
+        if (other.gameObject.tag == "Bomb")
+        {
+            encapsuled = true;
+            velocity = new Vector3(0f, 1f * up_speed, 0f);
+            bubble_life = old_life;
+            bomb_encapsuled = true;
+            bomb =parent(other.gameObject);
+            bomb.transform.position = this.transform.position;
+            bomb.transform.parent = this.transform;
+            change_scale_factor(bomb, true);
+            return;
+        }
+        
+
+
         if (is_encapsuled(other.gameObject) && !encapsuled)
         {
             encapsuled = true;
@@ -135,13 +155,7 @@ public class Bubble : MonoBehaviour {
                     change_scale_factor(encapsuled_ai.gameObject,true);
                 }
             }
-            else
-            {
-                bomb_encapsuled = true;
-                bomb = parent(other.gameObject);
-                bomb.transform.parent = this.transform;
-                change_scale_factor(bomb,true);
-            }
+    
         }
     }
 
@@ -174,6 +188,13 @@ public class Bubble : MonoBehaviour {
         var bottom_left = other.transform.position + new Vector3(center.x - size.x , center.y - size.y);
         var bottom_right = other.transform.position + new Vector3(center.x + size.x, center.y - size.y);
 
+        /*
+         * Debug
+        Debug.DrawLine(top_left,top_right,Color.red);
+        Debug.DrawLine(top_right,bottom_right,Color.red);
+        Debug.DrawLine(bottom_right,bottom_left,Color.red);
+        Debug.DrawLine(bottom_left,top_left,Color.red);
+        */    
 
         return ( Mathf.Pow((top_left.x - center_circle.x),2) + Mathf.Pow((top_left.y-center_circle.y),2)< Mathf.Pow( radius_circle,2)
                  &&

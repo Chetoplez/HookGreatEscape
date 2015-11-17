@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Bomb
   - PirateVerySober
+  - BombContainer
   layers:
   - Default
   - TransparentFX

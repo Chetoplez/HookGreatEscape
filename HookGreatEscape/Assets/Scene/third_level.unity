@@ -2136,7 +2136,7 @@ Transform:
   - {fileID: 220901164}
   - {fileID: 665712140}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1001 &490956529
 Prefab:
   m_ObjectHideFlags: 0
@@ -3433,11 +3433,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 428984, guid: 4266e49a2f5182e4796007f504cb7c6d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -12.7822704
+      value: -2.28999996
       objectReference: {fileID: 0}
     - target: {fileID: 428984, guid: 4266e49a2f5182e4796007f504cb7c6d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.22034192
+      value: -1.75999999
       objectReference: {fileID: 0}
     - target: {fileID: 428984, guid: 4266e49a2f5182e4796007f504cb7c6d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -7237,7 +7237,7 @@ Transform:
   - {fileID: 1328155322}
   - {fileID: 1376959771}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1001 &2109546037
 Prefab:
   m_ObjectHideFlags: 0
