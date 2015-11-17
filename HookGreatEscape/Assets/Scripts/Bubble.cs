@@ -99,6 +99,7 @@ public class Bubble : MonoBehaviour {
             {
                 if (bomb != null)
                 {
+                    gravityscale_ai = 1;
                     bomb.transform.parent = null;
                     change_scale_factor(bomb, false);
                 }

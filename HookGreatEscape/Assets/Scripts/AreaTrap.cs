@@ -12,7 +12,7 @@ public class AreaTrap : MonoBehaviour {
             if (trap != null)
             {
                 trap.SetActive(true);
-                this.gameObject.SetActive(false);
+               
             }
         }
     }
